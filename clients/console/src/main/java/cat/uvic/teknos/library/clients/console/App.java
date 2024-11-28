@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class App {
     private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     private static final PrintStream out = new PrintStream(System.out);
-    private static RestClient restClient = new RestClientImpl("localhost", 3306);
+    private static RestClient restClient = new RestClientImpl("localhost", 8080);
 
     public static void main(String[] args) {
         showBanner();
@@ -101,7 +101,7 @@ public class App {
 
     private static void listAuthors() {
         try {
-            var authors = restClient.getAll("/author", AuthorDto[].class);
+            var authors = restClient.getAll("/author/", AuthorDto[].class);
             for (AuthorDto author : authors) {
                 out.println("\nAuthor ID: " + author.getId());
                 out.println("Name: " + author.getFirstName());

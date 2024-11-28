@@ -2,15 +2,19 @@ package cat.uvic.teknos.library.clients.console.utils;
 
 import cat.uvic.teknos.library.clients.console.exceptions.ConsoleClientException;
 import cat.uvic.teknos.library.clients.console.exceptions.RequestException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import rawhttp.core.*;
-
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 
 public class RestClientImpl implements RestClient {
     private final int port;
     private final String host;
+    private final RawHttp rawHttp = new RawHttp();
+    private final ObjectMapper objectMapper = Mappers.get();
+
 
     public RestClientImpl(String host, int port) {
         this.host = host;
@@ -41,49 +45,58 @@ public class RestClientImpl implements RestClient {
         execRequest("DELETE", path, null, Void.class);
     }
 
-    protected <T> T execRequest(String method, String path, String body, Class<T> returnType) throws RequestException {
-        var rawHttp = new RawHttp();
-        try (var socket = new Socket(host, port)) {
-           /* var request = new RawHttpRequest(
-                    new RequestLine(
-                            "GET",
-                            new URI(String.format("http://%s:%d/%s", host, port, path)),
-                            HttpVersion.HTTP_1_1
-                    ),
-                    RawHttpHeaders.newBuilder()
-                            .with("User-Agent", "RestClient/1.0")
-                            .with("Host", host)
-                            .build(),
-                    null,
-                    InetAddress.getByName(host)
-            );*/
+    private <T> T execRequest(String method, String path, String body, Class<T> returnType) throws RequestException {
+        try (Socket socket = new Socket(host, port)) {
+            String requestBody = body == null ? "" : body;
 
-            if (body == null) {
-                body = "";
-            }
-
-            var request = rawHttp.parseRequest(
-                    method + " " + String.format("http://%s:%d/%s", host, port, path) + " HTTP/1.1\r\n" +
+            // Build and send the request
+            RawHttpRequest request = rawHttp.parseRequest(
+                    method + " " + path + " HTTP/1.1\r\n" +
                             "Host: " + host + "\r\n" +
-                            "User-Agent: RawHTTP\r\n" +
-                            "Content-Length: " + body.length()+ "\r\n" +
                             "Content-Type: application/json\r\n" +
-                            "Accept: application/json\r\n" +
-                            "\r\n" +
-                            body
+                            "Content-Length: " + requestBody.length() + "\r\n\r\n" +
+                            requestBody
             );
-
             request.writeTo(socket.getOutputStream());
 
-            T returnValue = null;
-            var response = rawHttp.parseResponse(socket.getInputStream()).eagerly();
-            if (!returnType.isAssignableFrom(Void.class)) {
-                returnValue = Mappers.get().readValue(response.getBody().get().toString(), returnType);
+            // Parse the response
+            RawHttpResponse<?> response = rawHttp.parseResponse(socket.getInputStream()).eagerly();
+
+            if (response.getStatusCode() >= 400) {
+                String errorBody = response.getBody()
+                        .map(bodyReader -> {
+                            try {
+                                return bodyReader.asRawBytes();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .map(bytes -> new String(bytes, StandardCharsets.UTF_8))
+                        .orElse("No error details provided.");
+                throw new RequestException("Request failed with status: " + response.getStatusCode() + ". Details: " + errorBody);
             }
 
-            return returnValue;
+            if (returnType.equals(Void.class)) {
+                return null; // No response expected
+            }
+
+            String responseBody = response.getBody()
+                    .map(bodyReader -> {
+                        try {
+                            return bodyReader.asRawBytes();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .map(bytes -> new String(bytes, StandardCharsets.UTF_8))
+                    .orElse("");
+
+            return responseBody.isEmpty() ? null : objectMapper.readValue(responseBody, returnType);
+
         } catch (IOException e) {
-            throw new ConsoleClientException();
+            throw new RequestException("Network error occurred during the request.", e);
+        } catch (Exception e) {
+            throw new RequestException("Unexpected error during request execution.", e);
         }
     }
 }
