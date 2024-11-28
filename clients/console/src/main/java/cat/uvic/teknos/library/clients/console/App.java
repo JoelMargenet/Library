@@ -31,9 +31,10 @@ public class App {
             switch (command) {
                 case "1" -> manageAuthors();
                 case "2" -> manageBooks();
-                case "3" -> manageCustomers();
-                case "4" -> manageGenres();
-                case "5" -> manageLoans();
+                case "3" -> manageBookDetails();
+                case "4" -> manageCustomers();
+                case "5" -> manageGenres();
+                case "6" -> manageLoans();
             }
 
         } while (!command.equals("exit"));
@@ -64,12 +65,15 @@ public class App {
 
     // Show main menu
     private static void showMainMenu() {
+        out.println("\nMain Menu");
         out.println("1. Author");
         out.println("2. Book");
-        out.println("3. Customer");
-        out.println("4. Genre");
-        out.println("5. Loan");
+        out.println("3. Book Detail");
+        out.println("4. Customer");
+        out.println("5. Genre");
+        out.println("6. Loan");
         out.println("Type 'exit' to quit.");
+        out.print(">> ");
     }
 
     // Managing Authors
@@ -91,62 +95,80 @@ public class App {
     }
 
     private static void showAuthorSubMenu() {
+        out.println("\nAuthor Menu");
         out.println("1. List all Authors");
         out.println("2. View Author by ID");
         out.println("3. Create a new Author");
         out.println("4. Update an Author");
         out.println("5. Delete an Author");
         out.println("Type 'exit' to go back.");
+        out.print(">> ");
     }
 
     private static void listAuthors() {
         try {
             var authors = restClient.getAll("/author/", AuthorDto[].class);
             for (AuthorDto author : authors) {
+                out.print("-----------------------");
                 out.println("\nAuthor ID: " + author.getId());
                 out.println("Name: " + author.getFirstName());
                 out.println("Last Name: " + author.getLastName());
             }
+            out.print("-----------------------\n");
         } catch (RequestException e) {
             out.println("Error fetching authors: " + e.getMessage());
         }
     }
 
     private static void viewAuthorById() {
+        out.println("\nAuthor Id to search");
+        out.print(">> ");
         var authorId = readLine(in);
         try {
             var author = restClient.get("/author/" + authorId, AuthorDto.class);
+            out.print("-----------------------");
             out.println("\nAuthor ID: " + author.getId());
             out.println("Name: " + author.getFirstName());
             out.println("Last Name: " + author.getLastName());
         } catch (RequestException e) {
             out.println("Error fetching author: " + e.getMessage());
         }
+        out.print("-----------------------\n");
     }
 
     private static void createAuthor() {
         var author = new AuthorDto();
+        out.println("\nAuthor First Name");
+        out.print(">> ");
         author.setFirstName(readLine(in));
+        out.println("Author Last Name");
+        out.print(">> ");
         author.setLastName(readLine(in));
 
         try {
             restClient.post("/author", Mappers.get().writeValueAsString(author));
-            out.println("Author created successfully.");
+            out.print("Author created successfully.\n");
         } catch (RequestException | JsonProcessingException e) {
             out.println("Error creating author: " + e.getMessage());
         }
     }
 
     private static void updateAuthor() {
+        out.println("Author Id to update");
+        out.print(">> ");
         var authorId = readLine(in);
         try {
             var author = restClient.get("/author/" + authorId, AuthorDto.class);
             out.println("Updating Author: " + author.getFirstName() + " " + author.getLastName());
+            out.println("New Author First Name:");
+            out.print(">>");
             author.setFirstName(readLine(in));  // Modify first name
+            out.println("New Author Last Name:");
+            out.print(">> ");
             author.setLastName(readLine(in));   // Modify last name
 
             restClient.put("/author/" + authorId, Mappers.get().writeValueAsString(author));
-            out.println("Author updated successfully.");
+            out.print("Author updated successfully.\n");
         } catch (RequestException | JsonProcessingException e) {
             out.println("Error updating author: " + e.getMessage());
         }
@@ -154,10 +176,11 @@ public class App {
 
     private static void deleteAuthor() {
         out.println("Enter the Id to delete:");
+        out.print(">> ");
         var authorId = readLine(in);
         try {
             restClient.delete("/author/" + authorId);
-            out.println("Author deleted successfully.");
+            out.print("Author deleted successfully.\n");
         } catch (RequestException e) {
             out.println("Error deleting author: " + e.getMessage());
         }
@@ -181,35 +204,48 @@ public class App {
     }
 
     private static void showBookSubMenu() {
+        out.println("\nBook Menu");
         out.println("1. List all Books");
         out.println("2. View Book by ID");
         out.println("3. Create a new Book");
         out.println("4. Update a Book");
         out.println("5. Delete a Book");
         out.println("Type 'exit' to go back.");
+        out.print(">> ");
     }
 
     private static void listBooks() {
         try {
             var books = restClient.getAll("/book", BookDto[].class);
             for (BookDto book : books) {
+                out.print("-----------------------");
                 out.println("\nBook ID: " + book.getId());
                 out.println("Title: " + book.getTitle());
                 out.println("Author: " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
+                out.println("Publication Date: " + book.getPublicationDate());
+                out.println("ISBN: " + book.getISBN());
+                out.println("Copies: " + book.getCopies());
             }
+            out.print("-----------------------\n");
         } catch (RequestException e) {
             out.println("Error fetching books: " + e.getMessage());
         }
     }
 
     private static void viewBookById() {
+        out.println("\nBook ID to view");
+        out.print(">> ");
         var bookId = readLine(in);
         try {
             var book = restClient.get("/book/" + bookId, BookDto.class);
+            out.print("-----------------------");
             out.println("\nBook ID: " + book.getId());
             out.println("Title: " + book.getTitle());
             out.println("Author: " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
+            out.println("Publication Date: " + book.getPublicationDate());
             out.println("ISBN: " + book.getISBN());
+            out.println("Copies: " + book.getCopies());
+            out.print("-----------------------\n");
         } catch (RequestException e) {
             out.println("Error fetching book: " + e.getMessage());
         }
@@ -217,10 +253,19 @@ public class App {
 
     private static void createBook() {
         var book = new BookDto();
+        out.println("\nBook Title:");
+        out.print(">> ");
         book.setTitle(readLine(in));
-        book.setISBN(readLine(in));
-        book.setCopies(Integer.parseInt(readLine(in)));  // Convert copies to int
         book.setAuthor(getAuthorFromInput());
+        out.println("Publication Date: ");
+        out.print(">> ");
+        book.setPublicationDate(Date.valueOf(readLine(in)));
+        out.println("Book ISBN:");
+        out.print(">> ");
+        book.setISBN(readLine(in));
+        out.println("Book number of Copies:");
+        out.print(">> ");
+        book.setCopies(Integer.parseInt(readLine(in)));  // Convert copies to int
 
         try {
             restClient.post("/book", Mappers.get().writeValueAsString(book));
@@ -232,6 +277,7 @@ public class App {
 
     private static AuthorDto getAuthorFromInput() {
         out.println("Enter Author ID: ");
+        out.print(">> ");
         var authorId = readLine(in);
         try {
             return restClient.get("/author/" + authorId, AuthorDto.class);
@@ -242,14 +288,26 @@ public class App {
     }
 
     private static void updateBook() {
+        out.println("\nBook ID to update");
+        out.print(">> ");
         var bookId = readLine(in);
         try {
             var book = restClient.get("/book/" + bookId, BookDto.class);
             out.println("Updating Book: " + book.getTitle());
-            book.setTitle(readLine(in));  // Modify title
-            book.setISBN(readLine(in));   // Modify ISBN
+            out.println("New Book Title:");
+            out.print(">> ");
+            book.setTitle(readLine(in));
+            out.println("New Book Author:");
+            book.setAuthor(getAuthorFromInput());
+            out.println("New Book Publication Date: ");
+            out.print(">> ");
+            book.setPublicationDate(Date.valueOf(readLine(in)));
+            out.println("New Book ISBN:");
+            out.print(">> ");
+            book.setISBN(readLine(in));
+            out.println("New Book number of Copies:");
+            out.print(">> ");
             book.setCopies(Integer.parseInt(readLine(in)));  // Modify copies
-            book.setAuthor(getAuthorFromInput());  // Modify author
 
             restClient.put("/book/" + bookId, Mappers.get().writeValueAsString(book));
             out.println("Book updated successfully.");
@@ -260,6 +318,7 @@ public class App {
 
     private static void deleteBook() {
         out.println("Enter the Id to delete:");
+        out.print(">> ");
         var bookId = readLine(in);
         try {
             restClient.delete("/book/" + bookId);
@@ -269,7 +328,151 @@ public class App {
         }
     }
 
-    // Managing Customers
+    private static void manageBookDetails() {
+        var command = "";
+        do {
+            showBookDetailSubMenu();
+            command = readLine(in);
+
+            switch (command) {
+                case "1" -> listBookDetails();
+                case "2" -> viewBookDetailById();
+                case "3" -> createBookDetail();
+                case "4" -> updateBookDetail();
+                case "5" -> deleteBookDetail();
+            }
+
+        } while (!command.equals("exit"));
+    }
+
+    private static void showBookDetailSubMenu() {
+        out.println("\nBook Detail Menu");
+        out.println("1. List all Book Details");
+        out.println("2. View Book Detail by ID");
+        out.println("3. Create a new Book Detail");
+        out.println("4. Update a Book Detail");
+        out.println("5. Delete a Book Detail");
+        out.println("Type 'exit' to go back.");
+        out.print(">> ");
+    }
+
+    private static void listBookDetails() {
+        try {
+            var bookDetails = restClient.getAll("/bookDetail", BookDetailDto[].class);
+            if (bookDetails != null && bookDetails.length > 0) {
+                for (BookDetailDto bookDetail : bookDetails) {
+                    out.print("-----------------------\n");
+                    out.println("Description: " + bookDetail.getDescription());
+                    out.println("Reviews: " + bookDetail.getReviews());
+                    out.println("Book ID: " + bookDetail.getId());
+                }
+            } else {
+                out.println("No book details found.");
+            }
+            out.print("-----------------------\n");
+        } catch (RequestException e) {
+            out.println("Error fetching book details: " + e.getMessage());
+            e.printStackTrace();  // Optional: print stack trace for debugging
+        }
+    }
+
+
+
+    private static void viewBookDetailById() {
+        out.println("\nBook Detail ID to view");
+        out.print(">> ");
+        var bookDetailId = readLine(in);
+        try {
+            var bookDetail = restClient.get("/bookDetail/" + bookDetailId, BookDetailDto.class);
+            out.print("-----------------------");
+            out.println("\nBook ID: " + bookDetail.getId());
+            out.println("Description: " + bookDetail.getDescription());
+            out.println("Reviews: " + bookDetail.getReviews());
+            out.print("-----------------------\n");
+        } catch (RequestException e) {
+            out.println("Error fetching book detail: " + e.getMessage());
+        }
+    }
+
+    private static void createBookDetail() {
+        var bookDetail = new BookDetailDto();
+        out.println("\nBook Detail Description:");
+        out.print(">> ");
+        bookDetail.setDescription(readLine(in));
+        out.println("Book Detail Reviews:");
+        out.print(">> ");
+        bookDetail.setReviews(readLine(in));
+        out.println("Enter Book ID for the book related to this detail:");
+        out.print(">> ");
+        var bookId = Integer.parseInt(readLine(in));  // Assuming bookId is an integer.
+        try {
+            var book = restClient.get("/book/" + bookId, BookDto.class);
+            bookDetail.setBook(book);
+            restClient.post("/bookDetail", Mappers.get().writeValueAsString(bookDetail));
+            if ((restClient.get("/bookDetail/" + bookId, BookDetailDto.class) != null)){
+                out.println("That Book already has a Detail.");
+            }
+            else{
+                out.println("Book detail created successfully.");
+            }
+        } catch (RequestException | JsonProcessingException e) {
+            out.println("Error creating book detail: " + e.getMessage());
+        }
+    }
+
+
+
+    private static void updateBookDetail(){
+        out.println("\nBook Detail ID to update");
+        out.print(">> ");
+        var bookDetailId = readLine(in);
+
+        try {
+            var bookDetail = restClient.get("/bookDetail/" + bookDetailId, BookDetailDto.class);
+            if (bookDetail.getDescription() != null){
+                out.println("Updating Book Detail: " + bookDetail.getDescription());
+                out.println("New Description:");
+                out.print(">> ");
+                bookDetail.setDescription(readLine(in));
+                out.println("New Reviews:");
+                out.print(">> ");
+                bookDetail.setReviews(readLine(in));
+                var book = restClient.get("/book/" + bookDetailId, BookDto.class);
+                bookDetail.setBook(book);
+
+                restClient.put("/bookDetail/" + bookDetailId, Mappers.get().writeValueAsString(bookDetail));
+                out.println("Book detail updated successfully.");
+            }
+            else{
+                out.println("Book detail not found.");
+            }
+
+        } catch (RequestException | JsonProcessingException e) {
+            out.println("Error updating book detail: " + e.getMessage());
+        }
+    }
+
+    private static void deleteBookDetail() {
+
+        out.println("\nEnter the Book Detail Id to delete:");
+        out.print(">> ");
+        var bookDetailId = readLine(in);
+        try {
+            var bookDetail = restClient.get("/bookDetail/" + bookDetailId, BookDetailDto.class);
+            if (bookDetail.getDescription() != null){
+                restClient.delete("/bookDetail/" + bookDetailId);
+                out.println("Book detail deleted successfully.");
+            }
+            else{
+                out.println("Book detail not found.");
+            }
+
+        } catch (RequestException e) {
+            out.println("Error deleting book detail: " + e.getMessage());
+        }
+    }
+
+        // Managing Customers
     private static void manageCustomers() {
         var command = "";
         do {

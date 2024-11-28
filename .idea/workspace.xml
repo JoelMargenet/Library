@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="" />
+    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8990e04d-3154-4671-b01b-911576fa88e8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8990e04d-3154-4671-b01b-911576fa88e8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase/DB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/DB.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase/Inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/Inserts.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/App.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,6 +67,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Database Script.DB.sql.executor": "Run",
+    "Database Script.Inserts.sql.executor": "Run",
     "Gradle.Build LIBRARY.executor": "Run",
     "Gradle.Build Library.executor": "Run",
     "Gradle.JdbcAuthorRepositoryTest.delete.executor": "Run",
@@ -150,6 +159,10 @@
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "mysql"
+    ],
+    "RunConfigurationTargetLRU": [
+      "8990e04d-3154-4671-b01b-911576fa88e8",
+      "8990e04d-3154-4671-b01b-911576fa88e8/schema/\"LIBRARY\""
     ]
   }
 }]]></component>
@@ -209,19 +222,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="authors | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http" index="2" requestIdentifier="#2" runType="Run single request">
+    <configuration name="DB.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/DataBase/DB.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="8990e04d-3154-4671-b01b-911576fa88e8" />
       <method v="2" />
     </configuration>
-    <configuration name="authors | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http" index="4" requestIdentifier="#4" runType="Run single request">
+    <configuration name="Inserts.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/DataBase/Inserts.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="8990e04d-3154-4671-b01b-911576fa88e8" namespace="schema/&quot;LIBRARY&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.Inserts.sql" />
+        <item itemvalue="Database Script.DB.sql" />
         <item itemvalue="Application.cat.uvic.teknos.library.backoffice.App" />
         <item itemvalue="Application.cat.library.services.App" />
         <item itemvalue="Application.App" />
-        <item itemvalue="HTTP Request.authors | #2" />
-        <item itemvalue="HTTP Request.authors | #4" />
       </list>
     </recent_temporary>
   </component>
@@ -262,7 +281,8 @@
       <workItem from="1731510171542" duration="28000" />
       <workItem from="1731689750141" duration="4180000" />
       <workItem from="1731945085375" duration="16000" />
-      <workItem from="1732805912200" duration="5674000" />
+      <workItem from="1732805912200" duration="6574000" />
+      <workItem from="1732815213878" duration="6919000" />
     </task>
     <servers />
   </component>

@@ -34,8 +34,3 @@ INSERT INTO BOOK_DETAIL (BOOK_ID, DESCRIPTION, REVIEWS)
 VALUES (1, 'A dystopian social science fiction novel.', 'Highly acclaimed for its portrayal of government surveillance and totalitarianism.'),
        (2, 'An allegorical novella about a group of farm animals who rebel against their human farmer.', 'Considered a classic and a satirical commentary on totalitarianism.'),
        (3, 'A fantasy novel about the quest of hobbit Bilbo Baggins to win a share of the treasure guarded by Smaug the dragon.', 'A beloved classic of children''s literature and the precursor to The Lord of the Rings trilogy.');
-
-INSERT INTO BOOK_GENRE (BOOK_ID, GENRE_ID) VALUES (1, 1);
-INSERT INTO BOOK_GENRE (BOOK_ID, GENRE_ID) VALUES (1, 2);
-INSERT INTO BOOK_GENRE (BOOK_ID, GENRE_ID) VALUES (2, 1);
-INSERT INTO BOOK_GENRE (BOOK_ID, GENRE_ID) VALUES (3, 2);
