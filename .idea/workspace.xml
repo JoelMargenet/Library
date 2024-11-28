@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LIBRARY" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2hQMmjcSRZp4IAEIbmTPZ0sbJqw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build LIBRARY.executor": "Run",
+    "Gradle.Build Library.executor": "Run",
+    "Gradle.JdbcAuthorRepositoryTest.delete.executor": "Run",
+    "Gradle.JdbcAuthorRepositoryTest.executor": "Run",
+    "Gradle.JdbcAuthorRepositoryTest.getAll.executor": "Run",
+    "Gradle.JdbcBookDetailRepositoryTest.executor": "Run",
+    "Gradle.JdbcBookDetailRepositoryTest.shouldInsertBookDetail.executor": "Run",
+    "Gradle.JdbcBookDetailRepositoryTest.shouldUpdateBookDetail.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.delete.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.get.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.getAll.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.shouldDeleteBook.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.shouldGetAllBooks.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.shouldGetBookById.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.shouldInsertBook.executor": "Run",
+    "Gradle.JdbcBookRepositoryTest.shouldUpdateBookDetail.executor": "Run",
+    "Gradle.JdbcCustomerRepositoryTest.executor": "Run",
+    "Gradle.JdbcCustomerRepositoryTest.get.executor": "Run",
+    "Gradle.JdbcGenreRepositoryTest.executor": "Run",
+    "Gradle.JdbcGenreRepositoryTest.shouldUpdateGenre.executor": "Run",
+    "Gradle.JdbcLoanRepositoryTest.delete.executor": "Run",
+    "Gradle.JdbcLoanRepositoryTest.executor": "Run",
+    "Gradle.JdbcLoanRepositoryTest.get.executor": "Run",
+    "Gradle.JdbcLoanRepositoryTest.getAll.executor": "Run",
+    "Gradle.JdbcLoanRepositoryTest.shouldInsertLoan.executor": "Run",
+    "Gradle.JdbcLoanRepositoryTest.shouldUpdateLoan.executor": "Run",
+    "Gradle.JpaAuthorRepositoryTest.executor": "Run",
+    "Gradle.JpaAuthorRepositoryTest.saveAndRetrieveAuthor.executor": "Run",
+    "Gradle.JpaBookRepositoryTest.executor": "Run",
+    "Gradle.JpaLoanRepositoryTest.executor": "Run",
+    "Gradle.LIBRARY:app [:app:App.main()].executor": "Run",
+    "Gradle.Library:app [:app:cat.uvic.teknos.library.backoffice.App.main()].executor": "Run",
+    "Gradle.Library:clients:console [:clients:console:cat.uvic.teknos.library.clients.console.App.main()].executor": "Run",
+    "Gradle.Library:services [:services:cat.library.services.App.main()].executor": "Run",
+    "HTTP Request.All in authors.executor": "Run",
+    "HTTP Request.All in book.executor": "Run",
+    "HTTP Request.All in bookdetails.executor": "Run",
+    "HTTP Request.All in customer.executor": "Run",
+    "HTTP Request.All in genre.executor": "Run",
+    "HTTP Request.All in loan.executor": "Run",
+    "HTTP Request.authors | #1.executor": "Run",
+    "HTTP Request.authors | #2.executor": "Run",
+    "HTTP Request.authors | #3.executor": "Run",
+    "HTTP Request.authors | #4.executor": "Run",
+    "HTTP Request.authors | #5.executor": "Run",
+    "HTTP Request.book | #1.executor": "Run",
+    "HTTP Request.book | #2.executor": "Run",
+    "HTTP Request.book | #3.executor": "Run",
+    "HTTP Request.book | #4.executor": "Run",
+    "HTTP Request.book | #5.executor": "Run",
+    "HTTP Request.bookdetails | #1.executor": "Run",
+    "HTTP Request.bookdetails | #2.executor": "Run",
+    "HTTP Request.bookdetails | #3.executor": "Run",
+    "HTTP Request.bookdetails | #4.executor": "Run",
+    "HTTP Request.bookdetails | #5.executor": "Run",
+    "HTTP Request.customer | #1.executor": "Run",
+    "HTTP Request.customer | #2.executor": "Run",
+    "HTTP Request.customer | #3.executor": "Run",
+    "HTTP Request.customer | #4.executor": "Run",
+    "HTTP Request.customer | #5.executor": "Run",
+    "HTTP Request.genre | #1.executor": "Run",
+    "HTTP Request.genre | #2.executor": "Run",
+    "HTTP Request.genre | #3.executor": "Run",
+    "HTTP Request.genre | #4.executor": "Run",
+    "HTTP Request.genre | #5.executor": "Run",
+    "HTTP Request.loan | #1.executor": "Run",
+    "HTTP Request.loan | #2.executor": "Run",
+    "HTTP Request.loan | #3.executor": "Run",
+    "HTTP Request.loan | #4.executor": "Run",
+    "JUnit.JdbcAuthorRepositoryTest and 5 more.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/10054083/Source/Repos/Library",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\10054083\Source\Repos\Library" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\cryptoutils" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src\test\resources" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src\main\java" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\10054083\Source\Repos\Library\cryptoutils\src" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\cryptoutils\main\src" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src\test\java" />
+      <recent name="C:\Users\10054083\Source\Repos\Library\clients" />
+      <recent name="C:\Users\joelm\Downloads\LIBRARY\domain-implementations\jpa\src\main\java\cat\uvic\teknos\library\domain\jpa\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.clients.console.App" />
+      <module name="LIBRARY.clients.console.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cat.uvic.teknos.library.clients.console.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cat.library.services.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cat.library.services.App" />
+      <module name="LIBRARY.services.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cat.library.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cat.uvic.teknos.library.backoffice.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.backoffice.App" />
+      <module name="LIBRARY.app.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cat.uvic.teknos.library.backoffice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="authors | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http" index="2" requestIdentifier="#2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="authors | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http" index="4" requestIdentifier="#4" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.cat.uvic.teknos.library.backoffice.App" />
+        <item itemvalue="Application.cat.library.services.App" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="HTTP Request.authors | #2" />
+        <item itemvalue="HTTP Request.authors | #4" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="" />
+      <created>1717522010792</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717522010792</updated>
+      <workItem from="1717522012415" duration="1728000" />
+      <workItem from="1717547126529" duration="2642000" />
+      <workItem from="1717580298883" duration="822000" />
+      <workItem from="1717592842830" duration="3625000" />
+      <workItem from="1717627386651" duration="580000" />
+      <workItem from="1717630861953" duration="6622000" />
+      <workItem from="1717662839007" duration="10872000" />
+      <workItem from="1717677275417" duration="6595000" />
+      <workItem from="1717686521391" duration="2367000" />
+      <workItem from="1729615301800" duration="5853000" />
+      <workItem from="1729621233930" duration="1444000" />
+      <workItem from="1729689765507" duration="1299000" />
+      <workItem from="1729863835341" duration="16091000" />
+      <workItem from="1729967655790" duration="383000" />
+      <workItem from="1729968060160" duration="4189000" />
+      <workItem from="1730048819266" duration="4909000" />
+      <workItem from="1731062430694" duration="1662000" />
+      <workItem from="1731084269189" duration="7377000" />
+      <workItem from="1731510171542" duration="28000" />
+      <workItem from="1731689750141" duration="4180000" />
+      <workItem from="1731945085375" duration="16000" />
+      <workItem from="1732805912200" duration="5098000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

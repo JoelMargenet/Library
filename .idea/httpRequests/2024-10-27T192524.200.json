@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Dystopian Fiction",
+    "books": null
+  },
+  {
+    "id": 2,
+    "name": "Fantasy",
+    "books": null
+  },
+  {
+    "id": 3,
+    "name": "Classic",
+    "books": null
+  }
+]

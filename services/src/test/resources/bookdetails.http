@@ -1,0 +1,53 @@
+# 1. GET Single Book Detail by ID
+GET http://localhost:8080/bookDetail/1
+Accept: application/json
+
+###
+
+# 2. GET All Book Details
+GET http://localhost:8080/bookDetail
+Accept: application/json
+
+###
+
+# 3. POST Create a New Book Detail
+POST http://localhost:8080/bookDetail
+Content-Type: application/json
+
+{
+  "description": "An exciting adventure in Middle-Earth",
+  "reviews": "Fantastic read!",
+  "book": {
+    "id": 1,
+    "title": "The Hobbit",
+    "author": { "id": 2 },
+    "publicationDate": "1937-09-21",
+    "isbn": "9780261102217",
+    "copies": 5
+  }
+}
+
+###
+
+# 4. PUT Update an Existing Book Detail
+PUT http://localhost:8080/bookDetail/1
+Content-Type: application/json
+
+{
+  "description": "An updated exciting adventure in Middle-Earth",
+  "reviews": "A must-read!",
+  "book": {
+    "id": 1,
+    "title": "The Hobbit",
+    "author": { "id": 2 },
+    "publicationDate": "1937-09-21",
+    "isbn": "9780261102217",
+    "copies": 5
+  }
+}
+
+###
+
+# 5. DELETE a Book Detail by ID
+DELETE http://localhost:8080/bookDetail/1
+Accept: application/json

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 5,
+    "title": "The Great Gatsby",
+    "publicationDate": -1411516800000,
+    "isbn": "9780743273565",
+    "copies": 10,
+    "author": {
+      "id": 3,
+      "firstName": null,
+      "lastName": null,
+      "books": null
+    },
+    "genres": null,
+    "loan": null,
+    "detail": null
+  },
+  {
+    "id": 1,
+    "title": "The Great Gatsby",
+    "publicationDate": -1411516800000,
+    "isbn": "9780743273565",
+    "copies": 12,
+    "author": {
+      "id": 3,
+      "firstName": null,
+      "lastName": null,
+      "books": null
+    },
+    "genres": null,
+    "loan": null,
+    "detail": null
+  }
+]

@@ -1,0 +1,45 @@
+# 1. GET Single Customer by ID
+GET http://localhost:8080/customer/1
+Accept: application/json
+
+###
+
+# 2. GET All Customers
+GET http://localhost:8080/customer
+Accept: application/json
+
+###
+
+# 3. POST Create a New Customer
+POST http://localhost:8080/customer
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane.doe@example.com",
+  "address": "123 Elm Street",
+  "phoneNumber": "555-1234"
+}
+
+###
+
+# 4. PUT Update an Existing Customer
+PUT http://localhost:8080/customer/3
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "address": "456 Oak Street",
+  "phoneNumber": "555-5678"
+}
+
+###
+
+# 5. DELETE a Customer by ID
+DELETE http://localhost:8080/customer/2
+Accept: application/json
+
+###

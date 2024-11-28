@@ -1,0 +1,43 @@
+# 1. GET Single Book by ID
+GET http://localhost:8080/book/1
+Accept: application/json
+
+###
+
+# 2. GET All Books
+GET http://localhost:8080/book
+Accept: application/json
+
+###
+
+# 3. POST Create a New Book
+POST http://localhost:8080/book
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby",
+  "author": { "id": 3 },
+  "publicationDate": "1925-04-10",
+  "isbn": "9780743273565",
+  "copies": 10
+}
+
+###
+
+# 4. PUT Update an Existing Book
+PUT http://localhost:8080/book/1
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby",
+  "author": { "id": 3 },
+  "publicationDate": "1925-04-10",
+  "isbn": "9780743273565",
+  "copies": 12
+}
+
+###
+
+# 5. DELETE a Book by ID
+DELETE http://localhost:8080/book/1
+Accept: application/json

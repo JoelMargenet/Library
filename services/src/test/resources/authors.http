@@ -1,0 +1,41 @@
+# 1. GET Single Author by ID
+GET http://localhost:8080/author/1
+Accept: application/json
+
+###
+
+
+# 2. GET All Authors
+GET http://localhost:8080/author
+Accept: application/json
+
+###
+
+
+# 3. POST Create a New Author
+POST http://localhost:8080/author
+Content-Type: application/json
+
+{
+  "firstName": "George",
+  "lastName": "Orwell"
+}
+
+###
+
+
+# 4. PUT Update an Existing Author
+PUT http://localhost:8080/author/3
+Content-Type: application/json
+
+{
+  "firstName": "Joel",
+  "lastName": "Blair"
+}
+
+###
+
+
+# 5. DELETE an Author by ID
+DELETE http://localhost:8080/author/2
+Accept: application/json

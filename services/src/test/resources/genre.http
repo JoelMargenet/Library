@@ -1,0 +1,37 @@
+# 1. GET Single Genre by ID
+GET http://localhost:8080/genre/1
+Accept: application/json
+
+###
+
+# 2. GET All Genres
+GET http://localhost:8080/genre
+Accept: application/json
+
+###
+
+# 3. POST Create a New Genre
+POST http://localhost:8080/genre
+Content-Type: application/json
+
+{
+  "name": "Science Fiction"
+}
+
+###
+
+# 4. PUT Update an Existing Genre
+PUT http://localhost:8080/genre/1
+Content-Type: application/json
+
+{
+  "name": "Science Fiction & Fantasy"
+}
+
+###
+
+# 5. DELETE a Genre by ID
+DELETE http://localhost:8080/genre/3
+Accept: application/json
+
+###

@@ -1,0 +1,50 @@
+# 1. GET All Loans
+GET http://localhost:8080/loan
+Accept: application/json
+
+###
+
+
+# 2. GET a Single Loan by Book ID
+GET http://localhost:8080/loan/1
+Accept: application/json
+
+###
+
+
+# 3. POST Create a New Loan
+POST http://localhost:8080/loan
+Content-Type: application/json
+
+{
+  "book": {
+    "id": 1
+  },
+  "customer": {
+    "id": 1
+  },
+  "loanDate": "2024-10-27",
+  "returnDate": "2024-11-27"
+}
+
+###
+
+
+# 4. PUT Update an Existing Loan
+PUT http://localhost:8080/loan/1
+Content-Type: application/json
+
+{
+  "customer": {
+    "id": 1
+  },
+  "loanDate": "2024-10-28",
+  "returnDate": "2024-11-28"
+}
+
+###
+
+
+# 5. DELETE a Loan by Book ID
+DELETE http://localhost:8080/loan/1
+Accept: application/json

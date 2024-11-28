@@ -1,0 +1,66 @@
+[
+  {
+    "id": 2,
+    "title": "Animal Farm",
+    "publicationDate": -769226400000,
+    "isbn": "9780451526342",
+    "copies": 8,
+    "author": {
+      "id": 1,
+      "firstName": null,
+      "lastName": null,
+      "books": null
+    },
+    "genres": null,
+    "loan": null,
+    "detail": null
+  },
+  {
+    "id": 4,
+    "title": "The Great Gatsby",
+    "publicationDate": -1411516800000,
+    "isbn": "978-3-16-148410-0",
+    "copies": 20,
+    "author": {
+      "id": 3,
+      "firstName": null,
+      "lastName": null,
+      "books": null
+    },
+    "genres": null,
+    "loan": null,
+    "detail": null
+  },
+  {
+    "id": 6,
+    "title": "Ivan Vidal",
+    "publicationDate": -1411516800000,
+    "isbn": "9780743273565",
+    "copies": 10,
+    "author": {
+      "id": 3,
+      "firstName": null,
+      "lastName": null,
+      "books": null
+    },
+    "genres": null,
+    "loan": null,
+    "detail": null
+  },
+  {
+    "id": 5,
+    "title": "The Great Gatsby",
+    "publicationDate": -1411516800000,
+    "isbn": "9780743273565",
+    "copies": 10,
+    "author": {
+      "id": 3,
+      "firstName": null,
+      "lastName": null,
+      "books": null
+    },
+    "genres": null,
+    "loan": null,
+    "detail": null
+  }
+]
