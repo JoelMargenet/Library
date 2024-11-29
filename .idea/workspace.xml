@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/utils/RestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/utils/RestClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/cryptoutils/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/cryptoutils/CryptoUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/src/main/java/cat/library/services/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/src/main/java/cat/library/services/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,118 +58,120 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Database Script.DB.sql.executor": "Run",
-    "Database Script.Inserts.sql.executor": "Run",
-    "Gradle.Build LIBRARY.executor": "Run",
-    "Gradle.Build Library.executor": "Run",
-    "Gradle.JdbcAuthorRepositoryTest.delete.executor": "Run",
-    "Gradle.JdbcAuthorRepositoryTest.executor": "Run",
-    "Gradle.JdbcAuthorRepositoryTest.getAll.executor": "Run",
-    "Gradle.JdbcBookDetailRepositoryTest.executor": "Run",
-    "Gradle.JdbcBookDetailRepositoryTest.shouldInsertBookDetail.executor": "Run",
-    "Gradle.JdbcBookDetailRepositoryTest.shouldUpdateBookDetail.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.delete.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.get.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.getAll.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.shouldDeleteBook.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.shouldGetAllBooks.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.shouldGetBookById.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.shouldInsertBook.executor": "Run",
-    "Gradle.JdbcBookRepositoryTest.shouldUpdateBookDetail.executor": "Run",
-    "Gradle.JdbcCustomerRepositoryTest.executor": "Run",
-    "Gradle.JdbcCustomerRepositoryTest.get.executor": "Run",
-    "Gradle.JdbcGenreRepositoryTest.executor": "Run",
-    "Gradle.JdbcGenreRepositoryTest.shouldUpdateGenre.executor": "Run",
-    "Gradle.JdbcLoanRepositoryTest.delete.executor": "Run",
-    "Gradle.JdbcLoanRepositoryTest.executor": "Run",
-    "Gradle.JdbcLoanRepositoryTest.get.executor": "Run",
-    "Gradle.JdbcLoanRepositoryTest.getAll.executor": "Run",
-    "Gradle.JdbcLoanRepositoryTest.shouldInsertLoan.executor": "Run",
-    "Gradle.JdbcLoanRepositoryTest.shouldUpdateLoan.executor": "Run",
-    "Gradle.JpaAuthorRepositoryTest.executor": "Run",
-    "Gradle.JpaAuthorRepositoryTest.saveAndRetrieveAuthor.executor": "Run",
-    "Gradle.JpaBookRepositoryTest.executor": "Run",
-    "Gradle.JpaLoanRepositoryTest.executor": "Run",
-    "Gradle.LIBRARY:app [:app:App.main()].executor": "Run",
-    "Gradle.Library:app [:app:cat.uvic.teknos.library.backoffice.App.main()].executor": "Run",
-    "Gradle.Library:clients:console [:clients:console:cat.uvic.teknos.library.clients.console.App.main()].executor": "Run",
-    "Gradle.Library:services [:services:cat.library.services.App.main()].executor": "Run",
-    "Gradle.RestClientImplTest.executor": "Run",
-    "Gradle.RestClientImplTest.getBookTest.executor": "Run",
-    "Gradle.RestClientImplTest.postLoanTest.executor": "Run",
-    "HTTP Request.All in authors.executor": "Run",
-    "HTTP Request.All in book.executor": "Run",
-    "HTTP Request.All in bookdetails.executor": "Run",
-    "HTTP Request.All in customer.executor": "Run",
-    "HTTP Request.All in genre.executor": "Run",
-    "HTTP Request.All in loan.executor": "Run",
-    "HTTP Request.authors | #1.executor": "Run",
-    "HTTP Request.authors | #2.executor": "Run",
-    "HTTP Request.authors | #3.executor": "Run",
-    "HTTP Request.authors | #4.executor": "Run",
-    "HTTP Request.authors | #5.executor": "Run",
-    "HTTP Request.book | #1.executor": "Run",
-    "HTTP Request.book | #2.executor": "Run",
-    "HTTP Request.book | #3.executor": "Run",
-    "HTTP Request.book | #4.executor": "Run",
-    "HTTP Request.book | #5.executor": "Run",
-    "HTTP Request.bookdetails | #1.executor": "Run",
-    "HTTP Request.bookdetails | #2.executor": "Run",
-    "HTTP Request.bookdetails | #3.executor": "Run",
-    "HTTP Request.bookdetails | #4.executor": "Run",
-    "HTTP Request.bookdetails | #5.executor": "Run",
-    "HTTP Request.customer | #1.executor": "Run",
-    "HTTP Request.customer | #2.executor": "Run",
-    "HTTP Request.customer | #3.executor": "Run",
-    "HTTP Request.customer | #4.executor": "Run",
-    "HTTP Request.customer | #5.executor": "Run",
-    "HTTP Request.genre | #1.executor": "Run",
-    "HTTP Request.genre | #2.executor": "Run",
-    "HTTP Request.genre | #3.executor": "Run",
-    "HTTP Request.genre | #4.executor": "Run",
-    "HTTP Request.genre | #5.executor": "Run",
-    "HTTP Request.loan | #1.executor": "Run",
-    "HTTP Request.loan | #2.executor": "Run",
-    "HTTP Request.loan | #3.executor": "Run",
-    "HTTP Request.loan | #4.executor": "Run",
-    "JUnit.JdbcAuthorRepositoryTest and 5 more.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/joelm/Library",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Database Script.DB.sql and 1 more.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.DB.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.Inserts.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build LIBRARY.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Library.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CryptoUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcAuthorRepositoryTest.delete.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcAuthorRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcAuthorRepositoryTest.getAll.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookDetailRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookDetailRepositoryTest.shouldInsertBookDetail.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookDetailRepositoryTest.shouldUpdateBookDetail.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.delete.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.get.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.getAll.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.shouldDeleteBook.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.shouldGetAllBooks.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.shouldGetBookById.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.shouldInsertBook.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcBookRepositoryTest.shouldUpdateBookDetail.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcCustomerRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcCustomerRepositoryTest.get.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcGenreRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcGenreRepositoryTest.shouldUpdateGenre.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcLoanRepositoryTest.delete.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcLoanRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcLoanRepositoryTest.get.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcLoanRepositoryTest.getAll.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcLoanRepositoryTest.shouldInsertLoan.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JdbcLoanRepositoryTest.shouldUpdateLoan.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JpaAuthorRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JpaAuthorRepositoryTest.saveAndRetrieveAuthor.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JpaBookRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.JpaLoanRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LIBRARY:app [:app:App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Library:app [:app:cat.uvic.teknos.library.backoffice.App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Library:clients:console [:clients:console:cat.uvic.teknos.library.clients.console.App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Library:services [:services:cat.library.services.App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RestClientImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RestClientImplTest.getBookTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.RestClientImplTest.postLoanTest.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in authors.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in book.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in bookdetails.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in customer.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in genre.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in loan.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.authors | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.authors | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.authors | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.authors | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.authors | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.book | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.book | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.book | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.book | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.book | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.bookdetails | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.bookdetails | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.bookdetails | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.bookdetails | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.bookdetails | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.customer | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.customer | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.customer | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.customer | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.customer | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.genre | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.genre | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.genre | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.genre | #4.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.genre | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.loan | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.loan | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.loan | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.loan | #4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JdbcAuthorRepositoryTest and 5 more.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/10054083/Source/Repos/Library/cryptoutils/src/test/java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "8990e04d-3154-4671-b01b-911576fa88e8",
-      "8990e04d-3154-4671-b01b-911576fa88e8/schema/\"LIBRARY\"",
-      "8990e04d-3154-4671-b01b-911576fa88e8/schema/\"library\""
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;8990e04d-3154-4671-b01b-911576fa88e8&quot;,
+      &quot;8990e04d-3154-4671-b01b-911576fa88e8/schema/\&quot;library\&quot;&quot;,
+      &quot;8990e04d-3154-4671-b01b-911576fa88e8/schema/\&quot;LIBRARY\&quot;&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\10054083\Source\Repos\Library\cryptoutils\src\test\java" />
       <recent name="C:\Users\10054083\Source\Repos\Library" />
       <recent name="C:\Users\10054083\Source\Repos\Library\cryptoutils" />
       <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src\test\resources" />
       <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src\main\java" />
-      <recent name="C:\Users\10054083\Source\Repos\Library\clients\console\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\10054083\Source\Repos\Library\cryptoutils\src" />
@@ -184,7 +181,7 @@
       <recent name="C:\Users\joelm\Downloads\LIBRARY\domain-implementations\jpa\src\main\java\cat\uvic\teknos\library\domain\jpa\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Gradle.CryptoUtilsTest">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cat.library.services.App" />
       <module name="LIBRARY.services.main" />
@@ -198,10 +195,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Inserts.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+    <configuration name="cat.uvic.teknos.library.clients.console.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.clients.console.App" />
+      <module name="LIBRARY.clients.console.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cat.uvic.teknos.library.clients.console.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DB.sql and 1 more" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/DataBase/DB.sql" />
       <script-file value="$PROJECT_DIR$/DataBase/Inserts.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="8990e04d-3154-4671-b01b-911576fa88e8" namespace="schema/&quot;LIBRARY&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CryptoUtilsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cryptoutils:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.cryptoutils.CryptoUtilsTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="RestClientImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -228,61 +263,13 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="RestClientImplTest.getBookTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":clients:console:test" />
-            <option value="--tests" />
-            <option value="&quot;cat.uvic.teknos.library.clients.console.utils.RestClientImplTest.getBookTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="RestClientImplTest.postLoanTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":clients:console:test" />
-            <option value="--tests" />
-            <option value="&quot;cat.uvic.teknos.library.clients.console.utils.RestClientImplTest.postLoanTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CryptoUtilsTest" />
+        <item itemvalue="Database Script.DB.sql and 1 more" />
+        <item itemvalue="Application.cat.uvic.teknos.library.clients.console.App" />
         <item itemvalue="Application.App" />
         <item itemvalue="Gradle.RestClientImplTest" />
-        <item itemvalue="Gradle.RestClientImplTest.getBookTest" />
-        <item itemvalue="Gradle.RestClientImplTest.postLoanTest" />
-        <item itemvalue="Database Script.Inserts.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -327,7 +314,8 @@
       <workItem from="1732815213878" duration="6919000" />
       <workItem from="1732832358885" duration="205000" />
       <workItem from="1732832581963" duration="7812000" />
-      <workItem from="1732881342263" duration="2331000" />
+      <workItem from="1732881342263" duration="750000" />
+      <workItem from="1732891181331" duration="1077000" />
     </task>
     <servers />
   </component>
