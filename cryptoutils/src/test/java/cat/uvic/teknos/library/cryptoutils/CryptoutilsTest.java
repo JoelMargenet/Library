@@ -10,7 +10,7 @@ import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CryptoUtilsTest {
+class CryptoutilsTest {
 
     private final CryptoUtils cryptoUtils = new CryptoUtils();
 

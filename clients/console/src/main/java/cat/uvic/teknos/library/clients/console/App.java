@@ -171,7 +171,7 @@ public class App {
                 out.println("New Author First Name (Current: " + author.getFirstName() + "): ");
                 out.print(">>");
                 author.setFirstName(readLine(in));  // Modify first name
-                out.println("New Author Last Name (Current: " + author.getFirstName() + "): ");
+                out.println("New Author Last Name (Current: " + author.getLastName() + "): ");
                 out.print(">> ");
                 author.setLastName(readLine(in));   // Modify last name
 
@@ -318,7 +318,7 @@ public class App {
                 out.println("New Book Title (Current: " + book.getTitle() + "):");
                 out.print(">> ");
                 book.setTitle(readLine(in));
-                out.println("New Book Author (Current: " + book.getAuthor() + "):");
+                out.println("New Book Author (Current: " + book.getAuthor().getId() + "):");
                 book.setAuthor(getAuthorFromInput());
                 out.println("New Book Publication Date (Current: " + book.getPublicationDate() + "):");
                 out.print(">> ");
@@ -416,7 +416,7 @@ public class App {
             } else {
                 out.print("-----------------------");
                 out.println("\nBook ID: " + bookDetail.getId());
-                out.println("\nBook Title: " + book.getTitle());
+                out.println("Book Title: " + book.getTitle());
                 out.println("Description: " + bookDetail.getDescription());
                 out.println("Reviews: " + bookDetail.getReviews());
                 out.print("-----------------------\n");
@@ -438,12 +438,12 @@ public class App {
         out.print(">> ");
         var bookId = Integer.parseInt(readLine(in));  // Assuming bookId is an integer.
         try {
-            var book = restClient.get("/book/" + bookId, BookDto.class);
-            bookDetail.setBook(book);
-            restClient.post("/bookDetail", Mappers.get().writeValueAsString(bookDetail));
             if ((restClient.get("/bookDetail/" + bookId, BookDetailDto.class) != null)) {
                 out.println("That Book already has a Detail.");
             } else {
+                var book = restClient.get("/book/" + bookId, BookDto.class);
+                bookDetail.setBook(book);
+                restClient.post("/bookDetail", Mappers.get().writeValueAsString(bookDetail));
                 out.println("Book detail created successfully.");
             }
         } catch (RequestException | JsonProcessingException e) {
@@ -857,6 +857,8 @@ public class App {
         out.print(">> ");
         loan.setLoanDate(Date.valueOf(readLine(in)));
 
+
+
         try {
             restClient.post("/loan", Mappers.get().writeValueAsString(loan));
             out.println("Loan created successfully.");
@@ -886,6 +888,10 @@ public class App {
                 out.println("Update Customer for Loan:");
                 loan.setCustomer(getCustomerFromInput());
 
+                out.println("Enter Return Date (yyyy-MM-dd):");
+                out.print(">> ");
+                loan.setReturnDate(Date.valueOf(readLine(in)));
+
                 restClient.put("/loan/" + loanId, Mappers.get().writeValueAsString(loan));
                 out.println("Loan updated successfully.");
             }
@@ -911,7 +917,7 @@ public class App {
         }
     }
     private static BookDto getBookFromInput() {
-        out.println("\nEnter Book ID:");
+        out.println("Enter Book ID:");
         out.print(">> ");
         var bookId = readLine(in);
         try {
@@ -923,7 +929,7 @@ public class App {
     }
 
     private static CustomerDto getCustomerFromInput() {
-        out.println("\nEnter Customer ID:");
+        out.println("Enter Customer ID:");
         out.print(">> ");
         var customerId = readLine(in);
         try {

@@ -1,3 +1,43 @@
+GET http://localhost:8080/loan
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-11-29T161049.200.json
+
+###
+
+GET http://localhost:8080/loan/1
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-11-29T161031.200.json
+
+###
+
+GET http://localhost:8080/loan/1
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-11-29T161016.200.json
+
+###
+
+GET http://localhost:8080/author/1
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-11-29T161008.200.json
+
+###
+
 GET http://localhost:8080/author
 Accept: application/json
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
@@ -546,53 +586,6 @@ Accept-Encoding: br, deflate, gzip, x-gzip
 content-length: 0
 
 <> 2024-10-27T192501-1.200.json
-
-###
-
-GET http://localhost:8080/author/1
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192501.200.json
-
-###
-
-GET http://localhost:8080/book
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192253.200.json
-
-###
-
-PUT http://localhost:8080/book/1
-Content-Type: application/json
-Content-Length: 136
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "title": "The Great Gatsby",
-  "author": { "id": 3 },
-  "publicationDate": "1925-04-10",
-  "isbn": "9780743273565",
-  "copies": 12
-}
-
-###
-
-GET http://localhost:8080/book
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192233.200.json
 
 ###
 

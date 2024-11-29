@@ -1,0 +1,25 @@
+{
+  "id": 0,
+  "loanDate": 1709161200000,
+  "returnDate": 1710370800000,
+  "customer": {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "address": "123 Main St, Anytown, USA",
+    "phoneNumber": "555-1234",
+    "loans": null
+  },
+  "book": {
+    "id": 1,
+    "title": null,
+    "publicationDate": null,
+    "isbn": null,
+    "copies": 0,
+    "author": null,
+    "genres": null,
+    "loan": null,
+    "detail": null
+  }
+}
