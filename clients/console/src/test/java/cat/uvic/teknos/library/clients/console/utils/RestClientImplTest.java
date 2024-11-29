@@ -14,7 +14,7 @@ class RestClientImplTest {
 
     @Test
     void getBookTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             BookDto book = restClient.get("books/1", BookDto.class);
             assertNotNull(book);
@@ -25,7 +25,7 @@ class RestClientImplTest {
 
     @Test
     void getAllBooksTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             BookDto[] books = restClient.getAll("books", BookDto[].class);
             assertNotNull(books);
@@ -36,7 +36,7 @@ class RestClientImplTest {
 
     @Test
     void postBookTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             var book = new BookDto();
             book.setTitle("Test Book");
@@ -50,7 +50,7 @@ class RestClientImplTest {
 
     @Test
     void getAuthorTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             AuthorDto author = restClient.get("authors/1", AuthorDto.class);
             assertNotNull(author);
@@ -61,7 +61,7 @@ class RestClientImplTest {
 
     @Test
     void getAllAuthorsTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             AuthorDto[] authors = restClient.getAll("authors", AuthorDto[].class);
             assertNotNull(authors);
@@ -72,7 +72,7 @@ class RestClientImplTest {
 
     @Test
     void postAuthorTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             var author = new AuthorDto();
             author.setFirstName("John");
@@ -86,7 +86,7 @@ class RestClientImplTest {
 
     @Test
     void getCustomerTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             CustomerDto customer = restClient.get("customers/1", CustomerDto.class);
             assertNotNull(customer);
@@ -97,7 +97,7 @@ class RestClientImplTest {
 
     @Test
     void getAllCustomersTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             CustomerDto[] customers = restClient.getAll("customers", CustomerDto[].class);
             assertNotNull(customers);
@@ -108,7 +108,7 @@ class RestClientImplTest {
 
     @Test
     void postCustomerTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             var customer = new CustomerDto();
             customer.setFirstName("Alice");
@@ -125,7 +125,7 @@ class RestClientImplTest {
 
     @Test
     void getGenreTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             GenreDto genre = restClient.get("genres/1", GenreDto.class);
             assertNotNull(genre);
@@ -136,7 +136,7 @@ class RestClientImplTest {
 
     @Test
     void getAllGenresTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             GenreDto[] genres = restClient.getAll("genres", GenreDto[].class);
             assertNotNull(genres);
@@ -147,7 +147,7 @@ class RestClientImplTest {
 
     @Test
     void postGenreTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             var genre = new GenreDto();
             genre.setName("Fantasy");
@@ -160,7 +160,7 @@ class RestClientImplTest {
 
     @Test
     void getLoanTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             LoanDto loan = restClient.get("loans/1", LoanDto.class);
             assertNotNull(loan);
@@ -171,7 +171,7 @@ class RestClientImplTest {
 
     @Test
     void getAllLoansTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             LoanDto[] loans = restClient.getAll("loans", LoanDto[].class);
             assertNotNull(loans);
@@ -182,7 +182,7 @@ class RestClientImplTest {
 
     @Test
     void postLoanTest() {
-        var restClient = new RestClientImpl("localhost", 3306);
+        var restClient = new RestClientImpl("localhost", 8080);
         try {
             var loan = new LoanDto();
             loan.setLoanDate(java.sql.Date.valueOf("2024-11-20"));

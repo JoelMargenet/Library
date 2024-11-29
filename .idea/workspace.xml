@@ -7,10 +7,14 @@
     <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/8990e04d-3154-4671-b01b-911576fa88e8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8990e04d-3154-4671-b01b-911576fa88e8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/domain-implementations/jpa/LIBRARY.domain-implementations.jpa.main.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataBase/DB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/DB.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataBase/Inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/Inserts.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/console/utils/RestClientImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/console/utils/RestClientImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/src/main/resources/datasource.properties" beforeDir="false" afterPath="$PROJECT_DIR$/services/src/main/resources/datasource.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +108,9 @@
     "Gradle.Library:app [:app:cat.uvic.teknos.library.backoffice.App.main()].executor": "Run",
     "Gradle.Library:clients:console [:clients:console:cat.uvic.teknos.library.clients.console.App.main()].executor": "Run",
     "Gradle.Library:services [:services:cat.library.services.App.main()].executor": "Run",
+    "Gradle.RestClientImplTest.executor": "Run",
+    "Gradle.RestClientImplTest.getBookTest.executor": "Run",
+    "Gradle.RestClientImplTest.postLoanTest.executor": "Run",
     "HTTP Request.All in authors.executor": "Run",
     "HTTP Request.All in book.executor": "Run",
     "HTTP Request.All in bookdetails.executor": "Run",
@@ -144,7 +151,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/10054083/Source/Repos/Library",
+    "last_opened_file_path": "C:/Users/joelm/Library",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -162,7 +169,8 @@
     ],
     "RunConfigurationTargetLRU": [
       "8990e04d-3154-4671-b01b-911576fa88e8",
-      "8990e04d-3154-4671-b01b-911576fa88e8/schema/\"LIBRARY\""
+      "8990e04d-3154-4671-b01b-911576fa88e8/schema/\"LIBRARY\"",
+      "8990e04d-3154-4671-b01b-911576fa88e8/schema/\"library\""
     ]
   }
 }]]></component>
@@ -182,50 +190,11 @@
       <recent name="C:\Users\joelm\Downloads\LIBRARY\domain-implementations\jpa\src\main\java\cat\uvic\teknos\library\domain\jpa\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.clients.console.App" />
-      <module name="LIBRARY.clients.console.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cat.uvic.teknos.library.clients.console.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="cat.library.services.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cat.library.services.App" />
-      <module name="LIBRARY.services.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cat.library.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="cat.uvic.teknos.library.backoffice.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.backoffice.App" />
-      <module name="LIBRARY.app.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cat.uvic.teknos.library.backoffice.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.RestClientImplTest">
     <configuration name="DB.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/DataBase/DB.sql" />
       <script-mode>FILE</script-mode>
-      <data-source id="8990e04d-3154-4671-b01b-911576fa88e8" />
+      <data-source id="8990e04d-3154-4671-b01b-911576fa88e8" namespace="schema/&quot;library&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="Inserts.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
@@ -234,13 +203,85 @@
       <data-source id="8990e04d-3154-4671-b01b-911576fa88e8" namespace="schema/&quot;LIBRARY&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="RestClientImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clients:console:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.clients.console.utils.RestClientImplTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="RestClientImplTest.getBookTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clients:console:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.clients.console.utils.RestClientImplTest.getBookTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="RestClientImplTest.postLoanTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clients:console:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.clients.console.utils.RestClientImplTest.postLoanTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.RestClientImplTest" />
+        <item itemvalue="Gradle.RestClientImplTest.getBookTest" />
+        <item itemvalue="Gradle.RestClientImplTest.postLoanTest" />
         <item itemvalue="Database Script.Inserts.sql" />
         <item itemvalue="Database Script.DB.sql" />
-        <item itemvalue="Application.cat.uvic.teknos.library.backoffice.App" />
-        <item itemvalue="Application.cat.library.services.App" />
-        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -283,6 +324,9 @@
       <workItem from="1731945085375" duration="16000" />
       <workItem from="1732805912200" duration="6574000" />
       <workItem from="1732815213878" duration="6919000" />
+      <workItem from="1732832358885" duration="205000" />
+      <workItem from="1732832581963" duration="7812000" />
+      <workItem from="1732881342263" duration="750000" />
     </task>
     <servers />
   </component>

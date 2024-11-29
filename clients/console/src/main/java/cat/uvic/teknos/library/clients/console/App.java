@@ -126,14 +126,18 @@ public class App {
         var authorId = readLine(in);
         try {
             var author = restClient.get("/author/" + authorId, AuthorDto.class);
-            out.print("-----------------------");
-            out.println("\nAuthor ID: " + author.getId());
-            out.println("Name: " + author.getFirstName());
-            out.println("Last Name: " + author.getLastName());
+            if (author.getFirstName() == null) {
+                out.println("Author with Id: (" + authorId + ") Not Found");
+            } else {
+                out.print("-----------------------");
+                out.println("\nAuthor ID: " + author.getId());
+                out.println("Name: " + author.getFirstName());
+                out.println("Last Name: " + author.getLastName());
+                out.print("-----------------------\n");
+            }
         } catch (RequestException e) {
             out.println("Error fetching author: " + e.getMessage());
         }
-        out.print("-----------------------\n");
     }
 
     private static void createAuthor() {
@@ -159,16 +163,21 @@ public class App {
         var authorId = readLine(in);
         try {
             var author = restClient.get("/author/" + authorId, AuthorDto.class);
-            out.println("Updating Author: " + author.getFirstName() + " " + author.getLastName());
-            out.println("New Author First Name:");
-            out.print(">>");
-            author.setFirstName(readLine(in));  // Modify first name
-            out.println("New Author Last Name:");
-            out.print(">> ");
-            author.setLastName(readLine(in));   // Modify last name
 
-            restClient.put("/author/" + authorId, Mappers.get().writeValueAsString(author));
-            out.print("Author updated successfully.\n");
+            if (author.getFirstName() == null) {
+                out.println("Author with Id: (" + authorId + ") Not found");
+            } else {
+                out.println("Updating Author: " + author.getFirstName() + " " + author.getLastName());
+                out.println("New Author First Name (Current: " + author.getFirstName() + "): ");
+                out.print(">>");
+                author.setFirstName(readLine(in));  // Modify first name
+                out.println("New Author Last Name (Current: " + author.getFirstName() + "): ");
+                out.print(">> ");
+                author.setLastName(readLine(in));   // Modify last name
+
+                restClient.put("/author/" + authorId, Mappers.get().writeValueAsString(author));
+                out.print("Author updated successfully.\n");
+            }
         } catch (RequestException | JsonProcessingException e) {
             out.println("Error updating author: " + e.getMessage());
         }
@@ -179,12 +188,17 @@ public class App {
         out.print(">> ");
         var authorId = readLine(in);
         try {
-            restClient.delete("/author/" + authorId);
-            out.print("Author deleted successfully.\n");
+            if ((restClient.get("/author/" + authorId, AuthorDto.class).getFirstName() == null)) {
+                out.println("Author with Id: (" + authorId + ") Not found");
+            } else {
+                restClient.delete("/author/" + authorId);
+                out.print("Author deleted successfully.\n");
+            }
         } catch (RequestException e) {
             out.println("Error deleting author: " + e.getMessage());
         }
     }
+
     // Managing Books
     private static void manageBooks() {
         var command = "";
@@ -238,14 +252,18 @@ public class App {
         var bookId = readLine(in);
         try {
             var book = restClient.get("/book/" + bookId, BookDto.class);
-            out.print("-----------------------");
-            out.println("\nBook ID: " + book.getId());
-            out.println("Title: " + book.getTitle());
-            out.println("Author: " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
-            out.println("Publication Date: " + book.getPublicationDate());
-            out.println("ISBN: " + book.getISBN());
-            out.println("Copies: " + book.getCopies());
-            out.print("-----------------------\n");
+            if (book.getTitle() == null) {
+                out.println("Book with Id: (" + bookId + ") Not Found");
+            } else {
+                out.print("-----------------------");
+                out.println("\nBook ID: " + book.getId());
+                out.println("Title: " + book.getTitle());
+                out.println("Author: " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
+                out.println("Publication Date: " + book.getPublicationDate());
+                out.println("ISBN: " + book.getISBN());
+                out.println("Copies: " + book.getCopies());
+                out.print("-----------------------\n");
+            }
         } catch (RequestException e) {
             out.println("Error fetching book: " + e.getMessage());
         }
@@ -257,7 +275,7 @@ public class App {
         out.print(">> ");
         book.setTitle(readLine(in));
         book.setAuthor(getAuthorFromInput());
-        out.println("Publication Date: ");
+        out.println("Publication Date (yyyy-MM-dd):");
         out.print(">> ");
         book.setPublicationDate(Date.valueOf(readLine(in)));
         out.println("Book ISBN:");
@@ -293,24 +311,29 @@ public class App {
         var bookId = readLine(in);
         try {
             var book = restClient.get("/book/" + bookId, BookDto.class);
-            out.println("Updating Book: " + book.getTitle());
-            out.println("New Book Title:");
-            out.print(">> ");
-            book.setTitle(readLine(in));
-            out.println("New Book Author:");
-            book.setAuthor(getAuthorFromInput());
-            out.println("New Book Publication Date: ");
-            out.print(">> ");
-            book.setPublicationDate(Date.valueOf(readLine(in)));
-            out.println("New Book ISBN:");
-            out.print(">> ");
-            book.setISBN(readLine(in));
-            out.println("New Book number of Copies:");
-            out.print(">> ");
-            book.setCopies(Integer.parseInt(readLine(in)));  // Modify copies
+            if (book.getTitle() == null) {
+                out.println("Book with Id: (" + bookId + ") Not Found");
+            } else {
+                out.println("Updating Book: " + book.getTitle());
+                out.println("New Book Title (Current: " + book.getTitle() + "):");
+                out.print(">> ");
+                book.setTitle(readLine(in));
+                out.println("New Book Author (Current: " + book.getAuthor() + "):");
+                book.setAuthor(getAuthorFromInput());
+                out.println("New Book Publication Date (Current: " + book.getPublicationDate() + "):");
+                out.print(">> ");
+                book.setPublicationDate(Date.valueOf(readLine(in)));
+                out.println("New Book ISBN (Current: " + book.getISBN() + "):");
+                out.print(">> ");
+                book.setISBN(readLine(in));
+                out.println("New Book number of Copies (Current: " + book.getCopies() + "):");
+                out.print(">> ");
+                book.setCopies(Integer.parseInt(readLine(in)));  // Modify copies
 
-            restClient.put("/book/" + bookId, Mappers.get().writeValueAsString(book));
-            out.println("Book updated successfully.");
+                restClient.put("/book/" + bookId, Mappers.get().writeValueAsString(book));
+                out.println("Book updated successfully.");
+            }
+
         } catch (RequestException | JsonProcessingException e) {
             out.println("Error updating book: " + e.getMessage());
         }
@@ -321,8 +344,12 @@ public class App {
         out.print(">> ");
         var bookId = readLine(in);
         try {
-            restClient.delete("/book/" + bookId);
-            out.println("Book deleted successfully.");
+            if ((restClient.get("/book/" + bookId, BookDto.class).getTitle() == null)) {
+                out.println("Book with Id: (" + bookId + ") Not Found");
+            } else {
+                restClient.delete("/book/" + bookId);
+                out.println("Book deleted successfully.");
+            }
         } catch (RequestException e) {
             out.println("Error deleting book: " + e.getMessage());
         }
@@ -362,9 +389,9 @@ public class App {
             if (bookDetails != null && bookDetails.length > 0) {
                 for (BookDetailDto bookDetail : bookDetails) {
                     out.print("-----------------------\n");
+                    out.println("Book ID: " + bookDetail.getId());
                     out.println("Description: " + bookDetail.getDescription());
                     out.println("Reviews: " + bookDetail.getReviews());
-                    out.println("Book ID: " + bookDetail.getId());
                 }
             } else {
                 out.println("No book details found.");
@@ -377,18 +404,23 @@ public class App {
     }
 
 
-
     private static void viewBookDetailById() {
         out.println("\nBook Detail ID to view");
         out.print(">> ");
         var bookDetailId = readLine(in);
         try {
             var bookDetail = restClient.get("/bookDetail/" + bookDetailId, BookDetailDto.class);
-            out.print("-----------------------");
-            out.println("\nBook ID: " + bookDetail.getId());
-            out.println("Description: " + bookDetail.getDescription());
-            out.println("Reviews: " + bookDetail.getReviews());
-            out.print("-----------------------\n");
+            var book = restClient.get("/book/" + bookDetailId, BookDto.class);
+            if (bookDetail.getDescription() == null) {
+                out.println("BookDetail with Id: (" + bookDetailId + ") Not Found");
+            } else {
+                out.print("-----------------------");
+                out.println("\nBook ID: " + bookDetail.getId());
+                out.println("\nBook Title: " + book.getTitle());
+                out.println("Description: " + bookDetail.getDescription());
+                out.println("Reviews: " + bookDetail.getReviews());
+                out.print("-----------------------\n");
+            }
         } catch (RequestException e) {
             out.println("Error fetching book detail: " + e.getMessage());
         }
@@ -409,10 +441,9 @@ public class App {
             var book = restClient.get("/book/" + bookId, BookDto.class);
             bookDetail.setBook(book);
             restClient.post("/bookDetail", Mappers.get().writeValueAsString(bookDetail));
-            if ((restClient.get("/bookDetail/" + bookId, BookDetailDto.class) != null)){
+            if ((restClient.get("/bookDetail/" + bookId, BookDetailDto.class) != null)) {
                 out.println("That Book already has a Detail.");
-            }
-            else{
+            } else {
                 out.println("Book detail created successfully.");
             }
         } catch (RequestException | JsonProcessingException e) {
@@ -421,30 +452,28 @@ public class App {
     }
 
 
-
-    private static void updateBookDetail(){
+    private static void updateBookDetail() {
         out.println("\nBook Detail ID to update");
         out.print(">> ");
         var bookDetailId = readLine(in);
 
         try {
             var bookDetail = restClient.get("/bookDetail/" + bookDetailId, BookDetailDto.class);
-            if (bookDetail.getDescription() != null){
-                out.println("Updating Book Detail: " + bookDetail.getDescription());
-                out.println("New Description:");
+            var book = restClient.get("/book/" + bookDetailId, BookDto.class);
+            if (bookDetail.getDescription() == null) {
+                out.println("BookDetail with Id: (" + bookDetailId + ") Not Found");
+            } else {
+                out.println("Updating Book Detail: " + book.getTitle());
+                out.println("New Description (Current: " + bookDetail.getDescription() + "):");
                 out.print(">> ");
                 bookDetail.setDescription(readLine(in));
-                out.println("New Reviews:");
+                out.println("New Reviews (Current: " + bookDetail.getReviews() + "):");
                 out.print(">> ");
                 bookDetail.setReviews(readLine(in));
-                var book = restClient.get("/book/" + bookDetailId, BookDto.class);
                 bookDetail.setBook(book);
 
                 restClient.put("/bookDetail/" + bookDetailId, Mappers.get().writeValueAsString(bookDetail));
                 out.println("Book detail updated successfully.");
-            }
-            else{
-                out.println("Book detail not found.");
             }
 
         } catch (RequestException | JsonProcessingException e) {
@@ -459,12 +488,11 @@ public class App {
         var bookDetailId = readLine(in);
         try {
             var bookDetail = restClient.get("/bookDetail/" + bookDetailId, BookDetailDto.class);
-            if (bookDetail.getDescription() != null){
+            if (bookDetail.getDescription() == null) {
+                out.println("BookDetail with Id: (" + bookDetailId + ") Not Found");
+            } else {
                 restClient.delete("/bookDetail/" + bookDetailId);
                 out.println("Book detail deleted successfully.");
-            }
-            else{
-                out.println("Book detail not found.");
             }
 
         } catch (RequestException e) {
@@ -472,7 +500,7 @@ public class App {
         }
     }
 
-        // Managing Customers
+    // Managing Customers
     private static void manageCustomers() {
         var command = "";
         do {
@@ -486,38 +514,58 @@ public class App {
                 case "4" -> updateCustomer();
                 case "5" -> deleteCustomer();
             }
-
         } while (!command.equals("exit"));
     }
 
     private static void showCustomerSubMenu() {
+        out.println("\nCustomer Menu");
         out.println("1. List all Customers");
         out.println("2. View Customer by ID");
         out.println("3. Create a new Customer");
         out.println("4. Update a Customer");
         out.println("5. Delete a Customer");
         out.println("Type 'exit' to go back.");
+        out.print(">> ");
     }
 
     private static void listCustomers() {
         try {
             var customers = restClient.getAll("/customer", CustomerDto[].class);
-            for (CustomerDto customer : customers) {
-                out.println("\nCustomer ID: " + customer.getId());
-                out.println("Name: " + customer.getFirstName() + " " + customer.getLastName());
+            if (customers != null && customers.length > 0) {
+                for (CustomerDto customer : customers) {
+                    out.print("-----------------------\n");
+                    out.println("Customer ID: " + customer.getId());
+                    out.println("Name: " + customer.getFirstName() + " " + customer.getLastName());
+                    out.println("Email: " + customer.getEmail());
+                    out.println("Address: " + customer.getAddress());
+                    out.println("Phone Number: " + customer.getPhoneNumber());
+                }
+            } else {
+                out.println("No customers found.");
             }
+            out.print("-----------------------\n");
         } catch (RequestException e) {
             out.println("Error fetching customers: " + e.getMessage());
         }
     }
 
     private static void viewCustomerById() {
+        out.println("\nEnter Customer ID to view:");
+        out.print(">> ");
         var customerId = readLine(in);
         try {
             var customer = restClient.get("/customer/" + customerId, CustomerDto.class);
-            out.println("\nCustomer ID: " + customer.getId());
-            out.println("Name: " + customer.getFirstName() + " " + customer.getLastName());
-            out.println("Email: " + customer.getEmail());
+            if (customer.getFirstName() == null) {
+                out.println("Customer With Id: (" + customerId + ") Not Found");
+            } else {
+                out.print("-----------------------\n");
+                out.println("Customer ID: " + customer.getId());
+                out.println("Name: " + customer.getFirstName() + " " + customer.getLastName());
+                out.println("Email: " + customer.getEmail());
+                out.println("Address: " + customer.getAddress());
+                out.println("Phone Number: " + customer.getPhoneNumber());
+                out.print("-----------------------\n");
+            }
         } catch (RequestException e) {
             out.println("Error fetching customer: " + e.getMessage());
         }
@@ -525,10 +573,20 @@ public class App {
 
     private static void createCustomer() {
         var customer = new CustomerDto();
+        out.println("\nEnter Customer First Name:");
+        out.print(">> ");
         customer.setFirstName(readLine(in));
+        out.println("Enter Customer Last Name:");
+        out.print(">> ");
         customer.setLastName(readLine(in));
+        out.println("Enter Customer Email:");
+        out.print(">> ");
         customer.setEmail(readLine(in));
+        out.println("Enter Customer Address:");
+        out.print(">> ");
         customer.setAddress(readLine(in));
+        out.println("Enter Customer Phone Number:");
+        out.print(">> ");
         customer.setPhoneNumber(readLine(in));
 
         try {
@@ -540,29 +598,51 @@ public class App {
     }
 
     private static void updateCustomer() {
+        out.println("\nEnter Customer ID to update:");
+        out.print(">> ");
         var customerId = readLine(in);
+
         try {
             var customer = restClient.get("/customer/" + customerId, CustomerDto.class);
-            out.println("Updating Customer: " + customer.getFirstName() + " " + customer.getLastName());
-            customer.setFirstName(readLine(in));  // Modify first name
-            customer.setLastName(readLine(in));   // Modify last name
-            customer.setEmail(readLine(in));      // Modify email
-            customer.setAddress(readLine(in));    // Modify address
-            customer.setPhoneNumber(readLine(in)); // Modify phone number
+            if (customer.getFirstName() == null) {
+                out.println("Customer With Id: (" + customerId + ") Not Found");
+            } else {
+                out.println("Updating Customer: " + customer.getFirstName() + " " + customer.getLastName());
+                out.println("New First Name (current: " + customer.getFirstName() + "):");
+                out.print(">> ");
+                customer.setFirstName(readLine(in));
+                out.println("New Last Name (current: " + customer.getLastName() + "):");
+                out.print(">> ");
+                customer.setLastName(readLine(in));
+                out.println("New Email (current: " + customer.getEmail() + "):");
+                out.print(">> ");
+                customer.setEmail(readLine(in));
+                out.println("New Address (current: " + customer.getAddress() + "):");
+                out.print(">> ");
+                customer.setAddress(readLine(in));
+                out.println("New Phone Number (current: " + customer.getPhoneNumber() + "):");
+                out.print(">> ");
+                customer.setPhoneNumber(readLine(in));
 
-            restClient.put("/customer/" + customerId, Mappers.get().writeValueAsString(customer));
-            out.println("Customer updated successfully.");
+                restClient.put("/customer/" + customerId, Mappers.get().writeValueAsString(customer));
+                out.println("Customer updated successfully.");
+            }
         } catch (RequestException | JsonProcessingException e) {
             out.println("Error updating customer: " + e.getMessage());
         }
     }
 
     private static void deleteCustomer() {
-        out.println("Enter the Id to delete:");
+        out.println("\nEnter Customer ID to delete:");
+        out.print(">> ");
         var customerId = readLine(in);
         try {
-            restClient.delete("/customer/" + customerId);
-            out.println("Customer deleted successfully.");
+            if (restClient.get("/customer/" + customerId, CustomerDto.class).getFirstName() == null) {
+                out.println("Customer With Id: (" + customerId + ") Not Found");
+            } else {
+                restClient.delete("/customer/" + customerId);
+                out.println("Customer deleted successfully.");
+            }
         } catch (RequestException e) {
             out.println("Error deleting customer: " + e.getMessage());
         }
@@ -582,37 +662,52 @@ public class App {
                 case "4" -> updateGenre();
                 case "5" -> deleteGenre();
             }
-
         } while (!command.equals("exit"));
     }
 
     private static void showGenreSubMenu() {
+        out.println("\nGenre Menu");
         out.println("1. List all Genres");
         out.println("2. View Genre by ID");
         out.println("3. Create a new Genre");
         out.println("4. Update a Genre");
         out.println("5. Delete a Genre");
         out.println("Type 'exit' to go back.");
+        out.print(">> ");
     }
 
     private static void listGenres() {
         try {
             var genres = restClient.getAll("/genre", GenreDto[].class);
-            for (GenreDto genre : genres) {
-                out.println("\nGenre ID: " + genre.getId());
-                out.println("Name: " + genre.getName());
+            if (genres != null && genres.length > 0) {
+                for (GenreDto genre : genres) {
+                    out.print("-----------------------\n");
+                    out.println("Genre ID: " + genre.getId());
+                    out.println("Name: " + genre.getName());
+                }
+            } else {
+                out.println("No genres found.");
             }
+            out.print("-----------------------\n");
         } catch (RequestException e) {
             out.println("Error fetching genres: " + e.getMessage());
         }
     }
 
     private static void viewGenreById() {
+        out.println("\nEnter Genre ID to view:");
+        out.print(">> ");
         var genreId = readLine(in);
         try {
             var genre = restClient.get("/genre/" + genreId, GenreDto.class);
-            out.println("\nGenre ID: " + genre.getId());
-            out.println("Name: " + genre.getName());
+            if (genre.getName() == null) {
+                out.println("Genre With ID: (" + genreId + ") Not Found");
+            } else {
+                out.print("-----------------------\n");
+                out.println("Genre ID: " + genre.getId());
+                out.println("Name: " + genre.getName());
+                out.print("-----------------------\n");
+            }
         } catch (RequestException e) {
             out.println("Error fetching genre: " + e.getMessage());
         }
@@ -620,6 +715,8 @@ public class App {
 
     private static void createGenre() {
         var genre = new GenreDto();
+        out.println("\nEnter Genre Name:");
+        out.print(">> ");
         genre.setName(readLine(in));
 
         try {
@@ -631,31 +728,45 @@ public class App {
     }
 
     private static void updateGenre() {
+        out.println("\nEnter Genre ID to update:");
+        out.print(">> ");
         var genreId = readLine(in);
-        try {
-            var genre = restClient.get("/genres/" + genreId, GenreDto.class);
-            out.println("Updating Genre: " + genre.getName());
-            genre.setName(readLine(in));  // Modify genre name
 
-            restClient.put("/genres/" + genreId, Mappers.get().writeValueAsString(genre));
-            out.println("Genre updated successfully.");
+        try {
+            var genre = restClient.get("/genre/" + genreId, GenreDto.class);
+            if (genre.getName() == null) {
+                out.println("Genre With ID: (" + genreId + ") Not Found");
+            } else {
+                out.println("Updating Genre: " + genre.getName());
+                out.println("New Name (current: " + genre.getName() + "):");
+                out.print(">> ");
+                genre.setName(readLine(in));
+
+                restClient.put("/genre/" + genreId, Mappers.get().writeValueAsString(genre));
+                out.println("Genre updated successfully.");
+            }
         } catch (RequestException | JsonProcessingException e) {
             out.println("Error updating genre: " + e.getMessage());
         }
     }
 
     private static void deleteGenre() {
-        out.println("Enter the Id to delete:");
+        out.println("\nEnter Genre ID to delete:");
+        out.print(">> ");
         var genreId = readLine(in);
         try {
-            restClient.delete("/genre/" + genreId);
-            out.println("Genre deleted successfully.");
+            var genre = restClient.get("/genre/" + genreId, GenreDto.class);
+            if (genre.getName() == null) {
+                out.println("Genre With ID: (" + genreId + ") Not Found");
+            } else {
+                restClient.delete("/genre/" + genreId);
+                out.println("Genre deleted successfully.");
+            }
         } catch (RequestException e) {
             out.println("Error deleting genre: " + e.getMessage());
         }
     }
 
-    // Managing Loans
     private static void manageLoans() {
         var command = "";
         do {
@@ -674,34 +785,60 @@ public class App {
     }
 
     private static void showLoanSubMenu() {
+        out.println("\nLoan Menu");
         out.println("1. List all Loans");
         out.println("2. View Loan by ID");
         out.println("3. Create a new Loan");
         out.println("4. Update a Loan");
         out.println("5. Delete a Loan");
         out.println("Type 'exit' to go back.");
+        out.print(">> ");
     }
 
     private static void listLoans() {
         try {
             var loans = restClient.getAll("/loan", LoanDto[].class);
-            for (LoanDto loan : loans) {
-                out.println("\nLoan ID: " + loan.getId());
-                out.println("Book ID: " + loan.getBook().getId());
-                out.println("Customer ID: " + loan.getCustomer().getId());
+            if (loans != null && loans.length > 0) {
+                for (LoanDto loan : loans) {
+                    out.print("-----------------------\n");
+                    out.println("Book ID: " + loan.getBook().getId() + "\nTitle: " + loan.getBook().getTitle());
+                    out.println("Customer ID: " + loan.getCustomer().getId() + "\nName: " + loan.getCustomer().getFirstName() + " " + loan.getCustomer().getLastName());
+                    out.println("Loan Date: " + loan.getLoanDate());
+                    if (loan.getReturnDate() != null) {
+                        out.println("Return Date: " + loan.getReturnDate());
+                    } else {
+                        out.println("Return Date: Not Returned Yet");
+                    }
+                }
+            } else {
+                out.println("No loans found.");
             }
+            out.print("-----------------------\n");
         } catch (RequestException e) {
             out.println("Error fetching loans: " + e.getMessage());
         }
     }
 
     private static void viewLoanById() {
+        out.println("\nEnter Loan ID to view:");
+        out.print(">> ");
         var loanId = readLine(in);
         try {
             var loan = restClient.get("/loan/" + loanId, LoanDto.class);
-            out.println("\nLoan ID: " + loan.getId());
-            out.println("Book ID: " + loan.getBook().getId());
-            out.println("Customer ID: " + loan.getCustomer().getId());
+            if (loan.getId() == 0) {
+                out.println("Loan with ID: (" + loanId + ") Not Found");
+            } else {
+                out.print("-----------------------\n");
+                out.println("Book ID: " + loan.getId() + "\nTitle: " + loan.getBook().getTitle());
+                out.println("Customer ID: " + loan.getCustomer().getId() + "\nName: " + loan.getCustomer().getFirstName() + " " + loan.getCustomer().getLastName());
+                out.println("Loan Date: " + loan.getLoanDate());
+                if (loan.getReturnDate() != null) {
+                    out.println("Return Date: " + loan.getReturnDate());
+                } else {
+                    out.println("Return Date: Not Returned Yet");
+                }
+                out.print("-----------------------\n");
+            }
         } catch (RequestException e) {
             out.println("Error fetching loan: " + e.getMessage());
         }
@@ -709,9 +846,16 @@ public class App {
 
     private static void createLoan() {
         var loan = new LoanDto();
+
+        out.println("\nEnter Book ID for Loan:");
         loan.setBook(getBookFromInput());
+
+        out.println("Enter Customer ID for Loan:");
         loan.setCustomer(getCustomerFromInput());
-        loan.setLoanDate(Date.valueOf(readLine(in))); // Use proper date format
+
+        out.println("Enter Loan Date (yyyy-MM-dd):");
+        out.print(">> ");
+        loan.setLoanDate(Date.valueOf(readLine(in)));
 
         try {
             restClient.post("/loan", Mappers.get().writeValueAsString(loan));
@@ -721,8 +865,54 @@ public class App {
         }
     }
 
+    private static void updateLoan() {
+        out.println("\nEnter Loan ID to update:");
+        out.print(">> ");
+        var loanId = readLine(in);
+
+        try {
+            var loan = restClient.get("/loan/" + loanId, LoanDto.class);
+            if (loan.getId() == 0) {
+                out.println("Loan with ID: (" + loanId + ") Not Found");
+            } else {
+                out.println("Updating Loan: " + loan.getId());
+                out.println("New Loan Date (Current: " + loan.getLoanDate() + "):");
+                out.print(">> ");
+                loan.setLoanDate(Date.valueOf(readLine(in)));
+
+                out.println("Update Book for Loan:");
+                loan.setBook(getBookFromInput());
+
+                out.println("Update Customer for Loan:");
+                loan.setCustomer(getCustomerFromInput());
+
+                restClient.put("/loan/" + loanId, Mappers.get().writeValueAsString(loan));
+                out.println("Loan updated successfully.");
+            }
+        } catch (RequestException | JsonProcessingException e) {
+            out.println("Error updating loan: " + e.getMessage());
+        }
+    }
+
+    private static void deleteLoan() {
+        out.println("\nEnter Loan ID to delete:");
+        out.print(">> ");
+        var loanId = readLine(in);
+        try {
+            var loan = restClient.get("/loan/" + loanId, LoanDto.class);
+            if (loan.getId() == 0) {
+                out.println("Loan with ID: (" + loanId + ") Not Found");
+            } else {
+                restClient.delete("/loan/" + loanId);
+                out.println("Loan deleted successfully.");
+            }
+        } catch (RequestException e) {
+            out.println("Error deleting loan: " + e.getMessage());
+        }
+    }
     private static BookDto getBookFromInput() {
-        out.println("Enter Book ID: ");
+        out.println("\nEnter Book ID:");
+        out.print(">> ");
         var bookId = readLine(in);
         try {
             return restClient.get("/book/" + bookId, BookDto.class);
@@ -733,7 +923,8 @@ public class App {
     }
 
     private static CustomerDto getCustomerFromInput() {
-        out.println("Enter Customer ID: ");
+        out.println("\nEnter Customer ID:");
+        out.print(">> ");
         var customerId = readLine(in);
         try {
             return restClient.get("/customer/" + customerId, CustomerDto.class);
@@ -742,35 +933,4 @@ public class App {
             return null;
         }
     }
-
-    private static void updateLoan() {
-        var loanId = readLine(in);
-        try {
-            var loan = restClient.get("/loan/" + loanId, LoanDto.class);
-            out.println("Updating Loan: " + loan.getId());
-            loan.setLoanDate(Date.valueOf(readLine(in)));  // Modify loan date
-            loan.setBook(getBookFromInput()); // Modify book
-            loan.setCustomer(getCustomerFromInput()); // Modify customer
-
-            restClient.put("/loan/" + loanId, Mappers.get().writeValueAsString(loan));
-            out.println("Loan updated successfully.");
-        } catch (RequestException | JsonProcessingException e) {
-            out.println("Error updating loan: " + e.getMessage());
-        }
-    }
-
-    private static void deleteLoan() {
-        out.println("Enter the Id to delete:");
-        var loanId = readLine(in);
-        try {
-            restClient.delete("/loan/" + loanId);
-            out.println("Loan deleted successfully.");
-        } catch (RequestException e) {
-            out.println("Error deleting loan: " + e.getMessage());
-        }
-    }
 }
-
-
-
-
