@@ -1,13 +1,15 @@
 package cat.library.services;
 
-import cat.library.services.exception.ServerException;
 import rawhttp.core.RawHttp;
-import rawhttp.core.RawHttpOptions;
 
+import javax.net.ssl.*;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.nio.file.Paths;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,7 +23,7 @@ public class Server {
 
     private ExecutorService threadPool;
     private ExecutorService scheduler;
-    private ServerSocket serverSocket;
+    private SSLServerSocketFactory sslServerSocketFactory;
 
     public Server(RequestRouter requestRouter) {
         this.requestRouter = requestRouter;
@@ -30,15 +32,33 @@ public class Server {
     public void start() {
         threadPool = Executors.newFixedThreadPool(10);
         scheduler = Executors.newSingleThreadExecutor();
-
         scheduler.submit(this::monitorShutdown);
 
         try {
-            serverSocket = new ServerSocket(PORT);
+            // Load keystore
+            KeyStore keystore = loadKeystore("server.p12", "password");
+
+            // Set up KeyManagerFactory for server authentication (server's private key)
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            keyManagerFactory.init(keystore, "password".toCharArray());
+
+            // Set up TrustManagerFactory for client verification (server verifies client)
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(keystore);
+
+            // Set up the SSLContext with the KeyManager and TrustManager
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), new java.security.SecureRandom());
+
+            // Create an SSLServerSocketFactory
+            sslServerSocketFactory = sslContext.getServerSocketFactory();
+
             System.out.println("Server started on port " + PORT);
             while (!shutdownServer) {
                 try {
-                    var clientSocket = serverSocket.accept();
+                    // Create SSL socket instead of plain ServerSocket
+                    var sslServerSocket = (SSLServerSocket) sslServerSocketFactory.createServerSocket(PORT);
+                    var clientSocket = sslServerSocket.accept();
                     threadPool.submit(() -> handleClient(clientSocket));
                 } catch (IOException e) {
                     if (shutdownServer) {
@@ -48,8 +68,8 @@ public class Server {
                     System.err.println("Error accepting client connection: " + e.getMessage());
                 }
             }
-        } catch (IOException e) {
-            throw new ServerException("Failed to start server", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to start server", e);
         } finally {
             shutdown();
         }
@@ -58,10 +78,7 @@ public class Server {
     private void handleClient(java.net.Socket clientSocket) {
         try (clientSocket) {
             System.out.println("Handling client request on thread: " + Thread.currentThread().getName());
-
-            var rawHttp = new RawHttp(RawHttpOptions.newBuilder()
-                    .doNotInsertHostHeaderIfMissing()
-                    .build());
+            var rawHttp = new RawHttp();
             var request = rawHttp.parseRequest(clientSocket.getInputStream()).eagerly();
             var response = requestRouter.execRequest(request);
             response.writeTo(clientSocket.getOutputStream());
@@ -70,6 +87,13 @@ public class Server {
         }
     }
 
+    private KeyStore loadKeystore(String keystorePath, String password) throws Exception {
+        KeyStore keystore = KeyStore.getInstance("PKCS12");
+        try (FileInputStream fis = new FileInputStream(keystorePath)) {
+            keystore.load(fis, password.toCharArray());
+        }
+        return keystore;
+    }
 
     private void monitorShutdown() {
         while (!shutdownServer) {
@@ -84,7 +108,6 @@ public class Server {
 
     private void checkShutdownProperty() {
         Properties properties = new Properties();
-
         try (FileInputStream fis = new FileInputStream(PROPERTIES_PATH)) {
             properties.load(fis);
             String shutdownValue = properties.getProperty("shutdown");
@@ -92,15 +115,6 @@ public class Server {
             if ("true".equalsIgnoreCase(shutdownValue)) {
                 System.out.println("Terminating server...");
                 shutdownServer = true;
-
-                if (serverSocket != null && !serverSocket.isClosed()) {
-                    try {
-                        serverSocket.close();
-                    } catch (IOException e) {
-                        System.err.println("Error closing server socket: " + e.getMessage());
-                    }
-                }
-
                 shutdownServices();
             }
         } catch (IOException e) {
@@ -129,3 +143,4 @@ public class Server {
         }
     }
 }
+

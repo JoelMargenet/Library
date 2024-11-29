@@ -4,12 +4,20 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.security.*;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.Base64;
+import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CryptoUtils {
+
+    private static final Logger logger = Logger.getLogger(CryptoUtils.class.getName());
 
     // Generate a hash (SHA-256) and return it as Base64
     public String getHash(String text) {
@@ -85,5 +93,75 @@ public class CryptoUtils {
         } catch (Exception e) {
             throw new RuntimeException("Error decrypting text asymmetrically: " + e.getMessage(), e);
         }
+    }
+
+    // Load a keystore from a file (e.g., .p12)
+    public KeyStore loadKeystore(String keystorePath, String password) throws Exception {
+        KeyStore keystore = KeyStore.getInstance("PKCS12");
+        try (FileInputStream fis = new FileInputStream(keystorePath)) {
+            keystore.load(fis, password.toCharArray());
+        }
+        return keystore;
+    }
+
+    // Get private key from keystore
+    public PrivateKey getPrivateKey(KeyStore keystore, String alias, String password) throws Exception {
+        Key key = keystore.getKey(alias, password.toCharArray());
+        if (key instanceof PrivateKey) {
+            return (PrivateKey) key;
+        } else {
+            throw new RuntimeException("No private key found with the alias: " + alias);
+        }
+    }
+
+    // Get public key from keystore
+    public PublicKey getPublicKey(KeyStore keystore, String alias) throws Exception {
+        Certificate cert = keystore.getCertificate(alias);
+        return cert.getPublicKey();
+    }
+
+    // Export public certificate from keystore
+    public void exportCertificate(KeyStore keystore, String alias, String certificatePath) throws Exception {
+        Certificate cert = keystore.getCertificate(alias);
+        try (FileOutputStream fos = new FileOutputStream(certificatePath)) {
+            fos.write(cert.getEncoded());
+        }
+    }
+
+    // Import public certificate into keystore
+    public void importCertificate(KeyStore keystore, String certificatePath, String alias) throws Exception {
+        CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+        try (FileInputStream fis = new FileInputStream(certificatePath)) {
+            Certificate cert = certFactory.generateCertificate(fis);
+            keystore.setCertificateEntry(alias, cert);
+        }
+    }
+
+    // Add private key and certificate to keystore
+    public void addPrivateKeyToKeystore(KeyStore keystore, String alias, PrivateKey privateKey, Certificate[] chain, String password) throws Exception {
+        keystore.setKeyEntry(alias, privateKey, password.toCharArray(), chain);
+        try (FileOutputStream fos = new FileOutputStream("keystore.p12")) {
+            keystore.store(fos, password.toCharArray());
+        }
+    }
+
+    // Initialize keystore and load client/server certificates
+    public void initializeKeystore() throws Exception {
+        // Load keystore
+        KeyStore keystore = loadKeystore("server.p12", "password");
+
+        // Export server certificate
+        exportCertificate(keystore, "server", "server-cert.cer");
+
+        // Import client certificate into server keystore
+        importCertificate(keystore, "client-cert.cer", "client-cert");
+
+        // Add server private key and certificate chain to keystore (for server authentication)
+        PrivateKey serverPrivateKey = getPrivateKey(keystore, "server", "password");
+        Certificate[] serverChain = keystore.getCertificateChain("server");
+        addPrivateKeyToKeystore(keystore, "server", serverPrivateKey, serverChain, "password");
+
+        // Save keystore after modification
+        addPrivateKeyToKeystore(keystore, "client", serverPrivateKey, serverChain, "password");
     }
 }
