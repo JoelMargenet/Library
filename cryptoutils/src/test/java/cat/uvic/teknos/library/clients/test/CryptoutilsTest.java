@@ -1,4 +1,4 @@
-package cat.uvic.teknos.library.cryptoutils;
+package cat.uvic.teknos.library.clients.test;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,9 @@
-# 1. GET Single Author by ID
+# GET Single Author by ID
 GET http://localhost:8080/author/1
 Accept: application/json
+Encrypted-Key: <base64-encrypted-symmetric-key>
+Body-Hash: <base64-hash-of-body>
+
 
 ###
 
@@ -8,6 +11,9 @@ Accept: application/json
 # 2. GET All Authors
 GET http://localhost:8080/author
 Accept: application/json
+Encrypted-Key: <base64-encrypted-symmetric-key>
+Body-Hash: <base64-hash-of-body>
+
 
 ###
 

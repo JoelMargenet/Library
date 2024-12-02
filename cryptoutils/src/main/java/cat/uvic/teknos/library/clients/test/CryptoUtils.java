@@ -1,12 +1,13 @@
-package cat.uvic.teknos.library.cryptoutils;
+package cat.uvic.teknos.library.clients.test;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.FileInputStream;
 import java.security.*;
 import java.security.cert.Certificate;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 public class CryptoUtils {
@@ -64,10 +65,10 @@ public class CryptoUtils {
     }
 
     // Asymmetric encryption using a public key (RSA)
-    public String asymmetricEncrypt(String plainTextBase64, Key publicKey) {
+    public String asymmetricEncrypt(String plainTextBase64, PublicKey publicKey) {
         try {
             Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);  // Use PublicKey for encryption
             byte[] encryptedBytes = cipher.doFinal(Base64.getDecoder().decode(plainTextBase64));
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
@@ -76,10 +77,10 @@ public class CryptoUtils {
     }
 
     // Asymmetric decryption using a private key (RSA)
-    public String asymmetricDecrypt(String encryptedTextBase64, Key privateKey) {
+    public String asymmetricDecrypt(String encryptedTextBase64, PrivateKey privateKey) {
         try {
             Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);  // Use PrivateKey for decryption
             byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedTextBase64));
             return new String(decryptedBytes);
         } catch (Exception e) {
@@ -87,38 +88,19 @@ public class CryptoUtils {
         }
     }
 
-    // Load a keystore from a .p12 file
-    public KeyStore loadKeystore(String keystorePath, String password) {
-        try (FileInputStream fis = new FileInputStream(keystorePath)) {
-            KeyStore keystore = KeyStore.getInstance("PKCS12");
-            keystore.load(fis, password.toCharArray());
-            return keystore;
-        } catch (Exception e) {
-            throw new RuntimeException("Error loading keystore: " + e.getMessage(), e);
-        }
+    // Convert a Base64-encoded public key to PublicKey object
+    public PublicKey decodePublicKey(String base64PublicKey) throws Exception {
+        byte[] publicKeyBytes = Base64.getDecoder().decode(base64PublicKey);
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicKeyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePublic(keySpec);
     }
 
-    // Get a private key from the keystore
-    public PrivateKey getPrivateKey(KeyStore keystore, String alias, String password) {
-        try {
-            Key key = keystore.getKey(alias, password.toCharArray());
-            if (key instanceof PrivateKey) {
-                return (PrivateKey) key;
-            } else {
-                throw new RuntimeException("No private key found for alias: " + alias);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error retrieving private key: " + e.getMessage(), e);
-        }
-    }
-
-    // Get a public key from the keystore
-    public PublicKey getPublicKey(KeyStore keystore, String alias) {
-        try {
-            Certificate certificate = keystore.getCertificate(alias);
-            return certificate.getPublicKey();
-        } catch (Exception e) {
-            throw new RuntimeException("Error retrieving public key: " + e.getMessage(), e);
-        }
+    // Convert a Base64-encoded private key to PrivateKey object
+    public PrivateKey decodePrivateKey(String base64PrivateKey) throws Exception {
+        byte[] privateKeyBytes = Base64.getDecoder().decode(base64PrivateKey);
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePrivate(keySpec);
     }
 }

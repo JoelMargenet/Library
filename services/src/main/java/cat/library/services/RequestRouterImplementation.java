@@ -1,280 +1,158 @@
 package cat.library.services;
 
 import cat.library.services.controllers.Controller;
+import cat.library.services.exception.ResourceNotFoundException;
+import cat.library.services.exception.ServerErrorException;
+import cat.uvic.teknos.library.clients.test.CryptoUtils;
 import rawhttp.core.RawHttp;
 import rawhttp.core.RawHttpRequest;
 import rawhttp.core.RawHttpResponse;
 
+import javax.crypto.SecretKey;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
+import java.security.PrivateKey;
 import java.util.Map;
 
 public class RequestRouterImplementation implements RequestRouter {
+
     private static final RawHttp rawHttp = new RawHttp();
     private final Map<String, Controller> controllers;
+    private final CryptoUtils cryptoUtils = new CryptoUtils();
+    private final PrivateKey serverPrivateKey;
 
     public RequestRouterImplementation(Map<String, Controller> controllers) {
         this.controllers = controllers;
+
+        try {
+            // Load server keystore from resources
+            KeyStore serverKeyStore = KeyStore.getInstance("PKCS12");
+            try (InputStream keyStoreStream = RequestRouterImplementation.class.getResourceAsStream("/server.p12")) {
+                if (keyStoreStream == null) {
+                    throw new RuntimeException("Server keystore not found.");
+                }
+                serverKeyStore.load(keyStoreStream, "Teknos01.".toCharArray());
+            }
+
+            // Get the server's private key
+            this.serverPrivateKey = (PrivateKey) serverKeyStore.getKey("server", "Teknos01.".toCharArray());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load server keystore or private key", e);
+        }
     }
 
     @Override
     public RawHttpResponse<?> execRequest(RawHttpRequest request) {
-        var path = request.getUri().getPath();
-        var method = request.getMethod();
-        var pathParts = path.split("/");
+        String path = request.getUri().getPath();
+        String method = request.getMethod();
+        String[] pathParts = path.split("/");
 
-        // Log incoming requests for debugging
-        System.out.println("Received request for path: " + path);
-        System.out.println("Method: " + method);
-        System.out.println("Path Parts: " + String.join(", ", pathParts));
+        if (pathParts.length < 2) {
+            return buildErrorResponse(404, "Invalid request path");
+        }
 
+        String controllerName = pathParts[1];
         String responseJsonBody = "";
 
-        // Ensure proper indexing for the pathParts array
-        if (pathParts.length < 2) {
-            return rawHttp.parseResponse("HTTP/1.1 404 Not Found\r\n\r\n");
-        }
-
-        switch (pathParts[1]) {
-            case "author":
-                responseJsonBody = manageAuthors(request, method, pathParts);
-                break;
-            case "book": // Correctly match "book" instead of "books"
-                responseJsonBody = manageBooks(request, method, pathParts);
-                break;
-            case "bookDetail":
-                responseJsonBody = manageBookDetails(request, method, pathParts);
-                break;
-            case "customer":
-                responseJsonBody = manageCustomers(request, method, pathParts);
-                break;
-            case "genre":
-                responseJsonBody = manageGenres(request, method, pathParts);
-                break;
-            case "loan":
-                responseJsonBody = manageLoans(request, method, pathParts);
-                break;
-            default:
-                return rawHttp.parseResponse("HTTP/1.1 404 Not Found\r\n\r\n");
-        }
-
-        // Create HTTP response
         try {
-            return rawHttp.parseResponse("HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Content-Length: " + responseJsonBody.length() + "\r\n" +
-                    "\r\n" +
-                    responseJsonBody);
+            // Handle request encryption and validation
+            String encryptedKey = getHeaderValue(request, "Encrypted-Key");
+            String bodyHash = getHeaderValue(request, "Body-Hash");
+
+            // Decrypt the symmetric key
+            String symmetricKeyBase64 = cryptoUtils.asymmetricDecrypt(encryptedKey, serverPrivateKey);
+            SecretKey symmetricKey = cryptoUtils.decodeSecretKey(symmetricKeyBase64);
+
+            // Decrypt the body
+            String encryptedBody = decryptRequestBody(request);
+            String decryptedBody = encryptedBody.isEmpty() ? "" : cryptoUtils.decrypt(encryptedBody, symmetricKey);
+
+            // Validate body hash
+            validateBodyHash(decryptedBody, bodyHash);
+
+            // Process the request based on the controller name
+            responseJsonBody = handleRequest(controllerName, method, decryptedBody, pathParts);
+
+            // Encrypt the response body
+            String encryptedResponseBody = cryptoUtils.encrypt(responseJsonBody, symmetricKey);
+
+            return buildSuccessResponse(encryptedResponseBody);
+
+        } catch (ResourceNotFoundException e) {
+            return buildErrorResponse(404, e.getMessage());
         } catch (Exception e) {
-            return rawHttp.parseResponse("HTTP/1.1 500 Internal Server Error\r\n\r\n");
+            return buildErrorResponse(500, "Internal Server Error: " + e.getMessage());
         }
     }
 
-    private String manageAuthors(RawHttpRequest request, String method, String[] pathParts) {
-        var controller = controllers.get("author");
-
-        if (method.equals("GET")) {
-            if (pathParts.length == 3) { // Single author by ID
-                try {
-                    int authorId = Integer.parseInt(pathParts[2]);
-                    return controller.get(authorId);
-                } catch (NumberFormatException e) {
-                    return ""; // Handle invalid ID format
-                }
-            } else { // All authors
-                return controller.get();
-            }
-        } else if (method.equals("POST")) {
-            var authorJson = request.getBody().get().toString();
-            controller.post(authorJson);
-            return ""; // Return empty response for POST
-        } else if (method.equals("DELETE") && pathParts.length == 3) {
-            try {
-                var authorId = Integer.parseInt(pathParts[2]);
-                return controller.delete(authorId);
-            } catch (NumberFormatException e) {
-                return ""; // Handle invalid ID format
-            }
-        } else if (method.equals("PUT") && pathParts.length == 3) {
-            var authorId = Integer.parseInt(pathParts[2]);
-            var authorJson = request.getBody().get().toString();
-            controller.put(authorId, authorJson);
-            return ""; // Return empty response for PUT
-        }
-
-        return ""; // Default return if nothing matches
+    private String getHeaderValue(RawHttpRequest request, String header) {
+        return request.getHeaders().get(header)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Missing " + header + " header"));
     }
 
-    private String manageBooks(RawHttpRequest request, String method, String[] pathParts) {
-        var controller = controllers.get("book");
-
-        if (method.equals("GET")) {
-            if (pathParts.length == 3) { // Single book by ID
-                try {
-                    int bookId = Integer.parseInt(pathParts[2]);
-                    return controller.get(bookId);
-                } catch (NumberFormatException e) {
-                    return ""; // Handle invalid ID format
-                }
-            } else { // All books
-                return controller.get();
-            }
-        } else if (method.equals("POST")) {
-            var bookJson = request.getBody().get().toString();
-            controller.post(bookJson);
-            return ""; // Return empty response for POST
-        } else if (method.equals("DELETE") && pathParts.length == 3) {
-            try {
-                var bookId = Integer.parseInt(pathParts[2]);
-                return controller.delete(bookId);
-            } catch (NumberFormatException e) {
-                return ""; // Handle invalid ID format
-            }
-        } else if (method.equals("PUT") && pathParts.length == 3) {
-            var bookId = Integer.parseInt(pathParts[2]);
-            var bookJson = request.getBody().get().toString();
-            controller.put(bookId, bookJson);
-            return ""; // Return empty response for PUT
-        }
-
-        return ""; // Default return if nothing matches
+    private String decryptRequestBody(RawHttpRequest request) {
+        return request.getBody()
+                .map(bodyReader -> {
+                    try {
+                        return bodyReader.decodeBodyToString(StandardCharsets.UTF_8);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Failed to read request body", e);
+                    }
+                })
+                .orElse("");
     }
 
-    private String manageBookDetails(RawHttpRequest request, String method, String[] pathParts) {
-        var controller = controllers.get("bookDetail");
-
-        if (method.equals("GET")) {
-            if (pathParts.length == 3) { // Single book detail by ID
-                try {
-                    int bookDetailId = Integer.parseInt(pathParts[2]);
-                    return controller.get(bookDetailId);
-                } catch (NumberFormatException e) {
-                    return ""; // Handle invalid ID format
-                }
-            } else { // All book details
-                return controller.get();
+    private void validateBodyHash(String decryptedBody, String expectedHash) {
+        if (!decryptedBody.isEmpty()) {
+            String calculatedHash = cryptoUtils.getHash(decryptedBody);
+            if (!calculatedHash.equals(expectedHash)) {
+                throw new ResourceNotFoundException("Body hash mismatch");
             }
-        } else if (method.equals("POST")) {
-            var bookDetailJson = request.getBody().get().toString();
-            controller.post(bookDetailJson);
-            return ""; // Return empty response for POST
-        } else if (method.equals("DELETE") && pathParts.length == 3) {
-            try {
-                var bookDetailId = Integer.parseInt(pathParts[2]);
-                return controller.delete(bookDetailId);
-            } catch (NumberFormatException e) {
-                return ""; // Handle invalid ID format
-            }
-        } else if (method.equals("PUT") && pathParts.length == 3) {
-            var bookDetailId = Integer.parseInt(pathParts[2]);
-            var bookDetailJson = request.getBody().get().toString();
-            controller.put(bookDetailId, bookDetailJson);
-            return ""; // Return empty response for PUT
         }
-
-        return ""; // Default return if nothing matches
     }
 
-    private String manageCustomers(RawHttpRequest request, String method, String[] pathParts) {
-        var controller = controllers.get("customer");
-
-        if (method.equals("GET")) {
-            if (pathParts.length == 3) { // Single customer by ID
-                try {
-                    int customerId = Integer.parseInt(pathParts[2]);
-                    return controller.get(customerId);
-                } catch (NumberFormatException e) {
-                    return ""; // Handle invalid ID format
-                }
-            } else { // All customers
-                return controller.get();
-            }
-        } else if (method.equals("POST")) {
-            var customerJson = request.getBody().get().toString();
-            controller.post(customerJson);
-            return ""; // Return empty response for POST
-        } else if (method.equals("DELETE") && pathParts.length == 3) {
-            try {
-                var customerId = Integer.parseInt(pathParts[2]);
-                return controller.delete(customerId);
-            } catch (NumberFormatException e) {
-                return ""; // Handle invalid ID format
-            }
-        } else if (method.equals("PUT") && pathParts.length == 3) {
-            var customerId = Integer.parseInt(pathParts[2]);
-            var customerJson = request.getBody().get().toString();
-            controller.put(customerId, customerJson);
-            return ""; // Return empty response for PUT
-        }
-
-        return ""; // Default return if nothing matches
+    private RawHttpResponse<?> buildSuccessResponse(String encryptedResponseBody) {
+        return rawHttp.parseResponse("HTTP/1.1 200 OK\r\n" +
+                "Content-Type: application/json\r\n" +
+                "Content-Length: " + encryptedResponseBody.length() + "\r\n" +
+                "\r\n" +
+                encryptedResponseBody);
     }
 
-    private String manageGenres(RawHttpRequest request, String method, String[] pathParts) {
-        var controller = controllers.get("genre");
-
-        if (method.equals("GET")) {
-            if (pathParts.length == 3) { // Single genre by ID
-                try {
-                    int genreId = Integer.parseInt(pathParts[2]);
-                    return controller.get(genreId);
-                } catch (NumberFormatException e) {
-                    return ""; // Handle invalid ID format
-                }
-            } else { // All genres
-                return controller.get();
-            }
-        } else if (method.equals("POST")) {
-            var genreJson = request.getBody().get().toString();
-            controller.post(genreJson);
-            return ""; // Return empty response for POST
-        } else if (method.equals("DELETE") && pathParts.length == 3) {
-            try {
-                var genreId = Integer.parseInt(pathParts[2]);
-                return controller.delete(genreId);
-            } catch (NumberFormatException e) {
-                return ""; // Handle invalid ID format
-            }
-        } else if (method.equals("PUT") && pathParts.length == 3) {
-            var genreId = Integer.parseInt(pathParts[2]);
-            var genreJson = request.getBody().get().toString();
-            controller.put(genreId, genreJson);
-            return ""; // Return empty response for PUT
-        }
-
-        return ""; // Default return if nothing matches
+    private RawHttpResponse<?> buildErrorResponse(int statusCode, String errorMessage) {
+        return rawHttp.parseResponse("HTTP/1.1 " + statusCode + " " + (statusCode == 404 ? "Not Found" : "Internal Server Error") + "\r\n" +
+                "Content-Type: text/plain\r\n" +
+                "\r\n" + errorMessage);
     }
 
-    private String manageLoans(RawHttpRequest request, String method, String[] pathParts) {
-        var controller = controllers.get("loan");
-
-        if (method.equals("GET")) {
-            if (pathParts.length == 3) { // Single loan by ID
-                try {
-                    int loanId = Integer.parseInt(pathParts[2]);
-                    return controller.get(loanId);
-                } catch (NumberFormatException e) {
-                    return ""; // Handle invalid ID format
-                }
-            } else { // All loans
-                return controller.get();
-            }
-        } else if (method.equals("POST")) {
-            var loanJson = request.getBody().get().toString();
-            controller.post(loanJson);
-            return ""; // Return empty response for POST
-        } else if (method.equals("DELETE") && pathParts.length == 3) {
-            try {
-                var loanId = Integer.parseInt(pathParts[2]);
-                return controller.delete(loanId);
-            } catch (NumberFormatException e) {
-                return ""; // Handle invalid ID format
-            }
-        } else if (method.equals("PUT") && pathParts.length == 3) {
-            var loanId = Integer.parseInt(pathParts[2]);
-            var loanJson = request.getBody().get().toString();
-            controller.put(loanId, loanJson);
-            return ""; // Return empty response for PUT
+    private String handleRequest(String controllerName, String method, String body, String[] pathParts) {
+        Controller controller = controllers.get(controllerName);
+        if (controller == null) {
+            throw new ResourceNotFoundException("Controller not found for: " + controllerName);
         }
 
-        return ""; // Default return if nothing matches
+        try {
+            if ("GET".equals(method)) {
+                if (pathParts.length == 3) {
+                    return controller.get(Integer.parseInt(pathParts[2]));
+                } else {
+                    return controller.get();
+                }
+            } else if ("POST".equals(method)) {
+                controller.post(body);
+            } else if ("PUT".equals(method) && pathParts.length == 3) {
+                controller.put(Integer.parseInt(pathParts[2]), body);
+            } else if ("DELETE".equals(method) && pathParts.length == 3) {
+                return controller.delete(Integer.parseInt(pathParts[2]));
+            }
+        } catch (Exception e) {
+            throw new ServerErrorException("Failed to handle request", e);
+        }
+
+        return "";
     }
 }

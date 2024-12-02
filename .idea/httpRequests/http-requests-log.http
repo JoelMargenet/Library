@@ -1,3 +1,133 @@
+GET http://localhost:8080/author/1
+Accept: application/json
+Encrypted-Key: <base64-encrypted-symmetric-key>
+Body-Hash: <base64-hash-of-body>
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T132640.500.txt
+
+###
+
+GET http://localhost:8080/author/1
+Accept: application/json
+Encrypted-Key: <base64-encrypted-symmetric-key>
+Body-Hash: <base64-hash-of-body>
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T132441.500.txt
+
+###
+
+GET http://localhost:8080/author
+Accept: application/json
+Encrypted-Key: <base64-encrypted-symmetric-key>
+Body-Hash: <base64-hash-of-body>
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T132325.500.txt
+
+###
+
+GET http://localhost:8080/author
+Accept: application/json
+Encrypted-Key: <base64-encrypted-symmetric-key>
+Body-Hash: <base64-hash-of-body>
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T132143.500.txt
+
+###
+
+GET http://localhost:8080/author
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T132040.404.txt
+
+###
+
+GET http://localhost:8080/author
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T132030.404.txt
+
+###
+
+DELETE http://localhost:8080/author/2
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T131951-4.404.txt
+
+###
+
+PUT http://localhost:8080/author/3
+Content-Type: application/json
+Content-Length: 48
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "firstName": "Joel",
+  "lastName": "Blair"
+}
+
+<> 2024-12-02T131951-3.404.txt
+
+###
+
+POST http://localhost:8080/author
+Content-Type: application/json
+Content-Length: 51
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "firstName": "George",
+  "lastName": "Orwell"
+}
+
+<> 2024-12-02T131951-2.404.txt
+
+###
+
+GET http://localhost:8080/author
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T131951-1.404.txt
+
+###
+
+GET http://localhost:8080/author/1
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-12-02T131951.404.txt
+
+###
+
 GET http://localhost:8080/loan
 Accept: application/json
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
@@ -454,138 +584,6 @@ Accept: */*
     "copies": 5
   }
 }
-
-###
-
-GET http://localhost:8080/bookDetail
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192515-1.200.json
-
-###
-
-GET http://localhost:8080/bookDetail/1
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192515.200.json
-
-###
-
-DELETE http://localhost:8080/book/1
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192512-2.200.json
-
-###
-
-PUT http://localhost:8080/book/1
-Content-Type: application/json
-Content-Length: 136
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "title": "The Great Gatsby",
-  "author": { "id": 3 },
-  "publicationDate": "1925-04-10",
-  "isbn": "9780743273565",
-  "copies": 12
-}
-
-###
-
-POST http://localhost:8080/book
-Content-Type: application/json
-Content-Length: 136
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "title": "The Great Gatsby",
-  "author": { "id": 3 },
-  "publicationDate": "1925-04-10",
-  "isbn": "9780743273565",
-  "copies": 10
-}
-
-###
-
-GET http://localhost:8080/book
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192512-1.200.json
-
-###
-
-GET http://localhost:8080/book/1
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192512.200.json
-
-###
-
-DELETE http://localhost:8080/author/2
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192502.200.json
-
-###
-
-PUT http://localhost:8080/author/3
-Content-Type: application/json
-Content-Length: 48
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "firstName": "Eric",
-  "lastName": "Blair"
-}
-
-###
-
-POST http://localhost:8080/author
-Content-Type: application/json
-Content-Length: 51
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "firstName": "George",
-  "lastName": "Orwell"
-}
-
-###
-
-GET http://localhost:8080/author
-Accept: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.4
-Accept-Encoding: br, deflate, gzip, x-gzip
-content-length: 0
-
-<> 2024-10-27T192501-1.200.json
 
 ###
 
