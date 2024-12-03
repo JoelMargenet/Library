@@ -1,4 +1,4 @@
-package cat.uvic.teknos.library.clients.test;
+package cat.uvic.teknos.library.clients;
 
 import org.junit.jupiter.api.Test;
 

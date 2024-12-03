@@ -3,7 +3,7 @@ package cat.library.services;
 import cat.library.services.controllers.Controller;
 import cat.library.services.exception.ResourceNotFoundException;
 import cat.library.services.exception.ServerErrorException;
-import cat.uvic.teknos.library.clients.test.CryptoUtils;
+import cat.uvic.teknos.library.clients.CryptoUtils;
 import rawhttp.core.RawHttp;
 import rawhttp.core.RawHttpRequest;
 import rawhttp.core.RawHttpResponse;
@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class RequestRouterImplementation implements RequestRouter {
 
@@ -22,6 +23,7 @@ public class RequestRouterImplementation implements RequestRouter {
     private final Map<String, Controller> controllers;
     private final CryptoUtils cryptoUtils = new CryptoUtils();
     private final PrivateKey serverPrivateKey;
+    private static final Logger logger = Logger.getLogger(RequestRouterImplementation.class.getName());
 
     public RequestRouterImplementation(Map<String, Controller> controllers) {
         this.controllers = controllers;
@@ -59,30 +61,36 @@ public class RequestRouterImplementation implements RequestRouter {
         try {
             // Handle request encryption and validation
             String encryptedKey = getHeaderValue(request, "Encrypted-Key");
-            String bodyHash = getHeaderValue(request, "Body-Hash");
+            logger.info("Encrypted key: " + encryptedKey);
 
             // Decrypt the symmetric key
             String symmetricKeyBase64 = cryptoUtils.asymmetricDecrypt(encryptedKey, serverPrivateKey);
+            logger.info("Decrypted symmetric key base64: " + symmetricKeyBase64);
+
             SecretKey symmetricKey = cryptoUtils.decodeSecretKey(symmetricKeyBase64);
+            logger.info("Symmetric key: " + symmetricKey);
 
             // Decrypt the body
             String encryptedBody = decryptRequestBody(request);
+            logger.info("Encrypted body: " + encryptedBody);
             String decryptedBody = encryptedBody.isEmpty() ? "" : cryptoUtils.decrypt(encryptedBody, symmetricKey);
-
-            // Validate body hash
-            validateBodyHash(decryptedBody, bodyHash);
+            logger.info("Decrypted body: " + decryptedBody);
 
             // Process the request based on the controller name
             responseJsonBody = handleRequest(controllerName, method, decryptedBody, pathParts);
+            logger.info("Response body: " + responseJsonBody);
 
             // Encrypt the response body
             String encryptedResponseBody = cryptoUtils.encrypt(responseJsonBody, symmetricKey);
+            logger.info("Encrypted response body: " + encryptedResponseBody);
 
             return buildSuccessResponse(encryptedResponseBody);
 
         } catch (ResourceNotFoundException e) {
+            logger.severe("Resource not found: " + e.getMessage());
             return buildErrorResponse(404, e.getMessage());
         } catch (Exception e) {
+            logger.severe("Internal Server Error: " + e.getMessage());
             return buildErrorResponse(500, "Internal Server Error: " + e.getMessage());
         }
     }
@@ -104,15 +112,6 @@ public class RequestRouterImplementation implements RequestRouter {
                     }
                 })
                 .orElse("");
-    }
-
-    private void validateBodyHash(String decryptedBody, String expectedHash) {
-        if (!decryptedBody.isEmpty()) {
-            String calculatedHash = cryptoUtils.getHash(decryptedBody);
-            if (!calculatedHash.equals(expectedHash)) {
-                throw new ResourceNotFoundException("Body hash mismatch");
-            }
-        }
     }
 
     private RawHttpResponse<?> buildSuccessResponse(String encryptedResponseBody) {
@@ -144,8 +143,10 @@ public class RequestRouterImplementation implements RequestRouter {
                 }
             } else if ("POST".equals(method)) {
                 controller.post(body);
+                return ""; // POST does not usually return a body, so we can return an empty response
             } else if ("PUT".equals(method) && pathParts.length == 3) {
                 controller.put(Integer.parseInt(pathParts[2]), body);
+                return ""; // PUT may not return a body, so return empty string
             } else if ("DELETE".equals(method) && pathParts.length == 3) {
                 return controller.delete(Integer.parseInt(pathParts[2]));
             }

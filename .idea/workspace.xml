@@ -5,23 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/test/ClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192501-1.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192502.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192512-1.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192512-2.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192512.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192515-1.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2024-10-27T192515.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/Exceptions/CryptoException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clients/console/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/utils/RestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/utils/RestClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/cryptoutils/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/test/CryptoUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cryptoutils/src/test/java/cat/uvic/teknos/library/cryptoutils/CryptoutilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/test/java/cat/uvic/teknos/library/clients/test/CryptoutilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/test/ClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/ClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/test/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/CryptoUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cryptoutils/src/test/java/cat/uvic/teknos/library/clients/test/CryptoutilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/test/java/cat/uvic/teknos/library/clients/CryptoutilsTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/src/main/java/cat/library/services/RequestRouterImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/src/main/java/cat/library/services/RequestRouterImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/src/main/resources/datasource.properties" beforeDir="false" afterPath="$PROJECT_DIR$/services/src/main/resources/datasource.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/src/test/resources/authors.http" beforeDir="false" afterPath="$PROJECT_DIR$/services/src/test/resources/authors.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,21 +189,8 @@
       <recent name="C:\Users\joelm\Downloads\LIBRARY\domain-implementations\jpa\src\main\java\cat\uvic\teknos\library\domain\jpa\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.cat.uvic.teknos.library.clients.console.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.clients.console.App" />
-      <module name="LIBRARY.clients.console.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="cat.uvic.teknos.library.clients.console.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="cat.library.services.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cat.library.services.App" />
       <module name="LIBRARY.services.main" />
       <extension name="coverage">
@@ -226,22 +203,98 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in authors" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http">
+    <configuration name="cat.uvic.teknos.library.clients.console.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cat.uvic.teknos.library.clients.console.App" />
+      <module name="LIBRARY.clients.console.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cat.uvic.teknos.library.clients.console.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clients:console:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.clients.test.ClientTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="authors | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http" requestIdentifier="#1" runType="Run single request">
+    <configuration name="ClientTest.testEncryptDecryptSymmetricData" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clients:console:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.clients.test.ClientTest.testEncryptDecryptSymmetricData&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="authors | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/services/src/test/resources/authors.http" index="2" requestIdentifier="#2" runType="Run single request">
+    <configuration name="ClientTest.testGetRequest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":clients:console:test" />
+            <option value="--tests" />
+            <option value="&quot;cat.uvic.teknos.library.clients.test.ClientTest.testGetRequest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.authors | #1" />
-        <item itemvalue="HTTP Request.authors | #2" />
-        <item itemvalue="HTTP Request.All in authors" />
-        <item itemvalue="Application.cat.library.services.App" />
+        <item itemvalue="Application.cat.uvic.teknos.library.clients.console.App" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Gradle.ClientTest.testEncryptDecryptSymmetricData" />
+        <item itemvalue="Gradle.ClientTest.testGetRequest" />
+        <item itemvalue="Gradle.ClientTest" />
       </list>
     </recent_temporary>
   </component>
@@ -290,6 +343,7 @@
       <workItem from="1732891181331" duration="1077000" />
       <workItem from="1732892277960" duration="7828000" />
       <workItem from="1733140792754" duration="2799000" />
+      <workItem from="1733256493732" duration="4903000" />
     </task>
     <servers />
   </component>
