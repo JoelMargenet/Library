@@ -1,7 +1,9 @@
 package cat.uvic.teknos.library.clients.console.utils;
 
+import cat.uvic.teknos.library.clients.console.exceptions.ConsoleClientException;
 import cat.uvic.teknos.library.clients.console.exceptions.RequestException;
 import cat.uvic.teknos.library.clients.CryptoUtils;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import rawhttp.core.*;
 
@@ -15,38 +17,20 @@ import java.security.KeyStore;
 import java.security.PublicKey;
 
 public class RestClientImpl implements RestClient {
-
-    private final String host;
     private final int port;
-    private final ObjectMapper objectMapper = Mappers.get(); // Use configured ObjectMapper
+    private final String host;
     private final RawHttp rawHttp = new RawHttp();
+    private final ObjectMapper objectMapper = Mappers.get();
+    private final PublicKey serverPublicKey;
+
     private static final String KEYSTORE_PATH = "/client1.p12";
     private static final String KEYSTORE_PASSWORD = "Teknos01.";
-    private static final String SERVER_CERT_ALIAS = "server";
-
-    private final PublicKey serverPublicKey;
+    private static final String KEY_ALIAS = "server";
 
     public RestClientImpl(String host, int port) {
         this.host = host;
         this.port = port;
-
-        try {
-            KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            InputStream keyStoreStream = getClass().getResourceAsStream(KEYSTORE_PATH);
-
-            if (keyStoreStream == null) {
-                throw new FileNotFoundException("Keystore file not found in classpath: " + KEYSTORE_PATH);
-            }
-
-            keyStore.load(keyStoreStream, KEYSTORE_PASSWORD.toCharArray());
-            serverPublicKey = keyStore.getCertificate(SERVER_CERT_ALIAS).getPublicKey();
-
-            if (serverPublicKey == null) {
-                throw new RuntimeException("Failed to load the server's public key.");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error loading client keystore: " + e.getMessage(), e);
-        }
+        this.serverPublicKey = loadServerPublicKey();
     }
 
     @Override
@@ -76,69 +60,86 @@ public class RestClientImpl implements RestClient {
 
     private <T> T execRequest(String method, String path, String body, Class<T> returnType) throws RequestException {
         try (Socket socket = new Socket(host, port)) {
-            String requestBody = body == null ? "" : body;
-
             // Generate a symmetric key
             SecretKey symmetricKey = CryptoUtils.createSecretKey();
-            System.out.println("Generated symmetric key: " + CryptoUtils.toBase64(symmetricKey.getEncoded()));
 
             // Encrypt the symmetric key using the server's public key
-            String encryptedSymmetricKeyBase64 = CryptoUtils.asymmetricEncrypt(CryptoUtils.toBase64(symmetricKey.getEncoded()), serverPublicKey);
-            System.out.println("Encrypted symmetric key (Base64): " + encryptedSymmetricKeyBase64);
+            String encryptedSymmetricKey = CryptoUtils.asymmetricEncrypt(CryptoUtils.toBase64(symmetricKey.getEncoded()), serverPublicKey);
 
-            // Encrypt the request body
-            if (!requestBody.isEmpty()) {
-                requestBody = CryptoUtils.encrypt(requestBody, symmetricKey);
-                System.out.println("Encrypted request body: " + requestBody);
-            }
+            // Encrypt the request body (if applicable) and compute the hash
+            String requestBody = body == null ? "" : body;
+            String encryptedRequestBody = requestBody.isEmpty() ? "" : CryptoUtils.encrypt(requestBody, symmetricKey);
+            String bodyHash = CryptoUtils.getHash(encryptedRequestBody);
 
-            // Calculate the hash of the request body (used to ensure integrity)
-            String requestBodyHash = CryptoUtils.getHash(requestBody);
-            System.out.println("Request body hash: " + requestBodyHash);
-
-            // Build the HTTP request
+            // Build and send the request with encryption headers
             RawHttpRequest request = rawHttp.parseRequest(
                     method + " " + path + " HTTP/1.1\r\n" +
                             "Host: " + host + "\r\n" +
                             "Content-Type: application/json\r\n" +
-                            "Content-Length: " + requestBody.length() + "\r\n" +
-                            "Symmetric-Key: " + encryptedSymmetricKeyBase64 + "\r\n" +
-                            "Body-Hash: " + requestBodyHash + "\r\n\r\n" +
-                            requestBody
+                            "Content-Length: " + encryptedRequestBody.length() + "\r\n" +
+                            "Symmetric-Key: " + encryptedSymmetricKey + "\r\n" +
+                            "Body-Hash: " + bodyHash + "\r\n\r\n" +
+                            encryptedRequestBody
             );
-
-            // Send the request
             request.writeTo(socket.getOutputStream());
 
-            // Get the response
+            // Parse the response
             RawHttpResponse<?> response = rawHttp.parseResponse(socket.getInputStream()).eagerly();
 
             if (response.getStatusCode() >= 400) {
-                throw new RequestException("Request failed with status: " + response.getStatusCode());
+                String errorBody = response.getBody()
+                        .map(bodyReader -> {
+                            try {
+                                return bodyReader.asRawBytes();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .map(bytes -> new String(bytes, StandardCharsets.UTF_8))
+                        .orElse("No error details provided.");
+                throw new RequestException("Request failed with status: " + response.getStatusCode() + ". Details: " + errorBody);
             }
 
-            // Decrypt the response body (if any)
+            if (returnType.equals(Void.class)) {
+                return null; // No response expected
+            }
+
             String responseBody = response.getBody()
                     .map(bodyReader -> {
                         try {
-                            return new String(bodyReader.asRawBytes(), StandardCharsets.UTF_8);
+                            return bodyReader.asRawBytes();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     })
+                    .map(bytes -> new String(bytes, StandardCharsets.UTF_8))
                     .orElse("");
 
-            System.out.println("Raw response body: " + responseBody);
+            // Decrypt the response body
+            String decryptedResponseBody = responseBody.isEmpty() ? "" : CryptoUtils.decrypt(responseBody, symmetricKey);
 
-            if (!responseBody.isEmpty()) {
-                responseBody = CryptoUtils.decrypt(responseBody, symmetricKey);
-                System.out.println("Decrypted response body: " + responseBody);
+            return decryptedResponseBody.isEmpty() ? null : objectMapper.readValue(decryptedResponseBody, returnType);
+
+        } catch (IOException e) {
+            throw new RequestException("Network error occurred during the request.", e);
+        } catch (Exception e) {
+            throw new RequestException("Unexpected error during request execution.", e);
+        }
+    }
+
+    private PublicKey loadServerPublicKey() {
+        try {
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            try (InputStream keyStoreStream = getClass().getResourceAsStream(KEYSTORE_PATH)) {
+                if (keyStoreStream == null) {
+                    throw new FileNotFoundException("Keystore file not found in classpath: " + KEYSTORE_PATH);
+                }
+                keyStore.load(keyStoreStream, KEYSTORE_PASSWORD.toCharArray());
             }
 
-            return responseBody.isEmpty() ? null : objectMapper.readValue(responseBody, returnType);
-
+            return keyStore.getCertificate(KEY_ALIAS).getPublicKey();
         } catch (Exception e) {
-            throw new RequestException("Error during request execution", e);
+            throw new RuntimeException("Error loading server public key: " + e.getMessage(), e);
         }
     }
 }

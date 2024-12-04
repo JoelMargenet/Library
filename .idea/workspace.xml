@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/Exceptions/CryptoException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/utils/RestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/main/java/cat/uvic/teknos/library/clients/console/utils/RestClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/test/ClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/clients/console/src/test/java/cat/uvic/teknos/library/clients/ClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/test/CryptoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/main/java/cat/uvic/teknos/library/clients/CryptoUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cryptoutils/src/test/java/cat/uvic/teknos/library/clients/test/CryptoutilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cryptoutils/src/test/java/cat/uvic/teknos/library/clients/CryptoutilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/src/main/java/cat/library/services/RequestRouterImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/src/main/java/cat/library/services/RequestRouterImplementation.java" afterDir="false" />
-    </list>
+    <list default="true" id="a9b0174e-d7a4-46c2-a7e0-1b408e45fca9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -189,7 +181,7 @@
       <recent name="C:\Users\joelm\Downloads\LIBRARY\domain-implementations\jpa\src\main\java\cat\uvic\teknos\library\domain\jpa\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.cat.uvic.teknos.library.clients.console.App">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cat.library.services.App" />
       <module name="LIBRARY.services.main" />
